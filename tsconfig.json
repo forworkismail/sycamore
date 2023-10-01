@@ -2,7 +2,18 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "baseUrl": "./",
+    "baseUrl": "./src",
+    "paths": {
+      "@shared/*": [
+        "modules/shared/*"
+      ],
+      "@modules/*": [
+        "modules/*"
+      ],
+      "@src/*": [
+        "./src/*"
+      ]
+    },
     "outDir": "./dist/out-tsc",
     "forceConsistentCasingInFileNames": true,
     "strict": true,
