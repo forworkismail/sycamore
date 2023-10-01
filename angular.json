@@ -5,7 +5,13 @@
   "projects": {
     "sycamore": {
       "projectType": "application",
-      "schematics": {},
+      "schematics": {
+        "@schematics/angular:component": {
+          "standalone": true,
+          "skipTests": true,
+          "style": "none"
+        }
+      },
       "root": "",
       "sourceRoot": "src",
       "prefix": "app",
