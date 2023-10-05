@@ -1,0 +1,132 @@
+<div class="grid grid-cols-[1fr,1150px,1fr] grid-rows-[55px,1fr]">
+  <div
+    class="sticky top-0 z-50 col-start-1 col-end-3 row-start-1 row-end-2 flex flex-row items-center overflow-y-auto border-b border-primary backdrop-blur-2xl">
+    <div class="flex flex-row items-center justify-between px-6">
+      <button (click)="onToggleSidebar()">
+        <app-sidebar-icon></app-sidebar-icon>
+      </button>
+      <div class="ms-4 flex flex-row items-center">
+        <span class="svg-icon svg-icon-2x me-4">
+          <svg fill="none" height="24" viewBox="0 0 24 24" width="24">
+            <rect fill="currentColor" height="9" rx="2" width="9" x="2" y="2" />
+            <rect fill="currentColor" height="9" opacity="0.3" rx="2" width="9" x="13" y="2" />
+            <rect fill="currentColor" height="9" opacity="0.3" rx="2" width="9" x="13" y="13" />
+            <rect fill="currentColor" height="9" opacity="0.3" rx="2" width="9" x="2" y="13" />
+          </svg>
+        </span>
+        <app-text-title>{{ this.activeRoute | titlecase }}</app-text-title>
+      </div>
+    </div>
+  </div>
+  <app-drawer [position]="'start'" [isOpen]="toggleSidebar" (drawerClosed)="toggleSidebar = false">
+    <app-sidebar (close)="toggleSidebar = false"></app-sidebar>
+  </app-drawer>
+  <div class="col-start-2 col-end-3 row-start-2 row-end-3">
+    <div class="flex flex-row">
+      <div (click)="increase()" class="bg-primary px-2 py-1 text-white">Signal</div>
+      <h1>{{count()}}</h1>
+    </div>
+    <!-- <app-overlay [height]="150" [width]="150">
+      <div class="cursor-pointer rounded-lg border border-gray-300 px-2 py-1 shadow hover:bg-gray-50" dropdown-trigger>
+        <div class="">Per page</div>
+      </div>
+      <div dropdown-content-body class="flex flex-col space-y-1">
+        <h1>cdef</h1>
+        <h1>ABC</h1>
+        <h1>ABC</h1>
+        <h1>ABC</h1>
+        <h1>ABC</h1>
+        <h1>ABC</h1>
+        <h1>ABC</h1>
+        <h1>ABC</h1>
+        <h1>ABC</h1>
+        <h1>ABC</h1>
+        <h1>ABC</h1>
+        <h1>ABC</h1>
+        <h1>ABC</h1>
+        <h1>ABC</h1>
+        <h1>ABC</h1>
+        <h1>ABC</h1>
+        <h1>ABC</h1>
+        <h1>ABC</h1>
+        <h1>ABC</h1>
+        <h1>ABC</h1>
+        <h1>ABC</h1>
+        <h1>ABC</h1>
+      </div>
+    </app-overlay> -->
+    <div>ewifojwefow</div>
+    <div>ewifojwefow</div>
+    <div>ewifojwefow</div>
+    <div>ewifojwefow</div>
+    <div>ewifojwefow</div>
+    <div>ewifojwefow</div>
+    <div>ewifojwefow</div>
+    <div>ewifojwefow</div>
+    <div>ewifojwefow</div>
+    <div>ewifojwefow</div>
+    <div>ewifojwefow</div>
+    <div class="flex flex-row">
+      <app-overlay [height]="150" [width]="150">
+        <div
+          class="cursor-pointer rounded-lg border border-gray-300 px-2 py-1 shadow hover:bg-gray-50"
+          dropdown-trigger>
+          <div class="">Per page</div>
+        </div>
+        <div dropdown-content-header class="font-bold">Per page</div>
+
+        <div dropdown-content-body class="flex flex-col space-y-1">
+          <h1>ABwefwef</h1>
+          <h1>ABC</h1>
+          <h1>ABC</h1>
+          <h1>ABC</h1>
+          <h1>ABC</h1>
+          <h1>ABC</h1>
+          <h1>ABC</h1>
+          <h1>ABC</h1>
+          <h1>ABC</h1>
+          <h1>ABC</h1>
+          <h1>ABC</h1>
+          <h1>ABC</h1>
+          <h1>ABC</h1>
+          <h1>ABC</h1>
+          <h1>ABC</h1>
+          <h1>ABC</h1>
+          <h1>ABC</h1>
+          <h1>ABC</h1>
+          <h1>ABC</h1>
+          <h1>ABC</h1>
+          <h1>ABC</h1>
+          <h1>ABC</h1>
+        </div>
+      </app-overlay>
+    </div>
+    <div>ewifojwefow</div>
+    <div>ewifojwefow</div>
+    <div>ewifojwefow</div>
+    <div>ewifojwefow</div>
+    <div>ewifojwefow</div>
+    <div>ewifojwefow</div>
+    <div>ewifojwefow</div>
+    <div>ewifojwefow</div>
+    <div>ewifojwefow</div>
+    <div>ewifojwefow</div>
+    <div>ewifojwefow</div>
+    <div>ewifojwefow</div>
+    <div>ewifojwefow</div>
+    <div>ewifojwefow</div>
+    <div>ewifojwefow</div>
+    <div>ewifojwefow</div>
+    <div>ewifojwefow</div>
+    <div>ewifojwefow</div>
+    <div>ewifojwefow</div>
+    <div>ewifojwefow</div>
+    <div>ewifojwefow</div>
+    <div>ewifojwefow</div>
+    <div>ewifojwefow</div>
+    <div>ewifojwefow</div>
+    <div>ewifojwefow</div>
+
+    <router-outlet></router-outlet>
+  </div>
+</div>

@@ -1,12 +1,28 @@
-import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+import { bootstrapApplication } from '@angular/platform-browser';
+import { Routes, provideRouter, withRouterConfig } from '@angular/router';
+import AppComponent from './app/app.component';
+import { provideAnimations } from '@angular/platform-browser/animations';
 
-
-import { importProvidersFrom } from '@angular/core';
-import { AppComponent } from './app/app.component';
-import { BrowserModule, bootstrapApplication } from '@angular/platform-browser';
-
+const routes: Routes = [
+  {
+    path: '',
+    redirectTo: 'panel',
+    pathMatch: 'full',
+  },
+  {
+    path: 'panel',
+    loadComponent: () => import('./app/panel/panel-shell.component'),
+  },
+];
 
 bootstrapApplication(AppComponent, {
-    providers: [importProvidersFrom(BrowserModule)]
-})
-  .catch(err => console.error(err));
+  providers: [
+    provideAnimations(),
+    provideRouter(
+      routes,
+      withRouterConfig({
+        onSameUrlNavigation: 'reload',
+      })
+    ),
+  ],
+}).catch((err) => console.error(err));
