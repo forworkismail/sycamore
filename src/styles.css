@@ -1,11 +1,45 @@
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
+@import '@angular/cdk/overlay-prebuilt.css';
 
 body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-    font-size: 14px;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
     box-sizing: border-box;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+}
+
+
+/* The width of the vertical scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+/* The height of the horizontal scrollbar */
+::-webkit-scrollbar {
+    height: 8px;
+}
+
+/* The background color of the entire scrollbar */
+::-webkit-scrollbar-track {
+    background-color: #efefea;
+}
+
+/* The scrollbar thumb (the part you drag) */
+::-webkit-scrollbar-thumb {
+    background-color: #aaa;
+    border-radius: 4px;
+}
+
+/* Handle hover state */
+::-webkit-scrollbar-thumb:hover {
+    background-color: #888;
+}
+
+/* For Firefox, you can use scrollbar-width and scrollbar-color properties */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: #aaa #efefea;
 }
