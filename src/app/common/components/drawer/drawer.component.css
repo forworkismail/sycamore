@@ -1,0 +1,38 @@
+.drawer-container {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    width: 300px;
+    z-index: 1000;
+    overflow: hidden;
+    transition: transform 200ms;
+
+    &.start {
+        left: 0;
+        transform: translateX(-100%);
+    }
+
+    &.end {
+        right: 0;
+        transform: translateX(100%);
+    }
+
+    &.open.start {
+        transform: translateX(0%);
+    }
+
+    &.open.end {
+        transform: translateX(0%);
+    }
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(2px);
+    z-index: 999;
+}
