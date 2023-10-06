@@ -11,7 +11,7 @@ const routes: Routes = [
   },
   {
     path: 'panel',
-    loadComponent: () => import('./app/panel/panel-shell.component'),
+    loadChildren: () => import('./app/panel/panel.routes').then(m => m.routes),
   },
 ];
 
@@ -22,7 +22,7 @@ bootstrapApplication(AppComponent, {
       routes,
       withRouterConfig({
         onSameUrlNavigation: 'reload',
-      })
+      }),
     ),
   ],
-}).catch((err) => console.error(err));
+}).catch(err => console.error(err));
