@@ -1,0 +1,27 @@
+<div class="h-screen overflow-hidden border-b border-[#efefea] py-5">
+  <div class="flex flex-row items-center justify-between px-4">
+    <div class="flex flex-row">
+      <app-company-icon></app-company-icon>
+    </div>
+    <div (click)="onClose()" class="" id="sidebar-button">
+      <button class="p-1 hover:bg-secondary">
+        <app-close-icon></app-close-icon>
+      </button>
+    </div>
+  </div>
+
+  <!-- menu -->
+  <div class="mt-6 flex h-[calc(100%-5rem)] flex-col overflow-y-auto border-y border-primary">
+    <div *ngFor="let item of menu" class="px-6">
+      <a
+        [routerLink]="['/panel', item.route]"
+        routerLinkActive="menu-active-link"
+        class="my-1 flex cursor-pointer items-center rounded px-2 py-3"
+        [ngClass]="item.route === activeRoute ? 'bg-[#f5f5eb]' : ''"
+        (click)="getActiveRouteSegment()">
+        <ng-container [ngComponentOutlet]="item.icon"></ng-container>
+        <div class="ms-3 w-[60%] truncate font-semibold">{{item.name|titlecase}}</div>
+      </a>
+    </div>
+  </div>
+</div>

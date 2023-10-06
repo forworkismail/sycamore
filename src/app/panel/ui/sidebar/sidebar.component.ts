@@ -1,12 +1,16 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router, NavigationEnd } from '@angular/router';
+import { Router, NavigationEnd, RouterLink } from '@angular/router';
 import { Subscription, filter } from 'rxjs';
+import { CloseIconComponent } from 'app/common/icons/close-icon.component';
+import { SidebarMenuItem } from './sidebar.config';
+import { ColorsIconComponent } from 'app/common/icons/colors-icon.component';
+import { CompanyIconComponent } from 'app/common/icons/company-icon.component';
 
 @Component({
   selector: 'app-sidebar',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, CloseIconComponent, RouterLink, CompanyIconComponent],
   templateUrl: './sidebar.component.html',
 })
 export class SidebarComponent {
@@ -36,26 +40,13 @@ export class SidebarComponent {
     }
   }
 
-  // menu: ISideBarMenu[] = [
-  //   { name: 'portfolio', icon: PortfolioIconComponent, route: 'portfolio' },
-  //   {
-  //     name: 'programs',
-  //     icon: ProgramsIconComponent,
-  //     route: 'programs',
-  //   },
-  //   {
-  //     name: 'projects',
-  //     icon: ProjectsIconComponent,
-  //     route: 'projects',
-  //   },
-  //   { name: 'statements', icon: StatementsIconComponent, route: 'statements' },
-  //   { name: 'reports', icon: ReportsIconComponent, route: 'reports' },
-  //   {
-  //     name: 'customers',
-  //     icon: CustomersIconComponent,
-  //     route: 'customers',
-  //   },
-  // ];
+  menu: SidebarMenuItem[] = [
+    {
+      name: 'Colors',
+      icon: ColorsIconComponent,
+      route: 'colors',
+    },
+  ];
 
   onClose() {
     this.close.emit();
