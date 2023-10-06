@@ -5,10 +5,11 @@
 
 body {
     font-family: 'Inter', sans-serif;
-    font-size: 13px;
+    font-size: 14px;
     box-sizing: border-box;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    overflow: hidden;
 }
 
 
