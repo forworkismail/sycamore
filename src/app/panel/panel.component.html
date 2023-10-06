@@ -1,0 +1,23 @@
+<div class="grid grid-cols-[1fr,1150px,1fr] grid-rows-[55px,1fr]">
+  <div
+    class="sticky top-0 z-50 col-start-1 col-end-3 row-start-1 row-end-2 flex flex-row items-center overflow-y-auto border-b border-primary backdrop-blur-2xl">
+    <div class="flex flex-row items-center justify-between space-x-6 px-4">
+      <div class="cursor-pointer" (click)="onToggleSidebar()">
+        <app-sidebar-icon></app-sidebar-icon>
+      </div>
+      <div class="ms-4 flex flex-row items-center space-x-2">
+        <app-company-icon></app-company-icon>
+        <app-text-title>{{ this.activeRoute | titlecase }}</app-text-title>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-start-2 col-end-3 row-start-2 row-end-3">
+    <!-- <button class="bg-primary px-2 py-4 text-white" #triggerButton (click)="showOverlay()">Show Overlay</button> -->
+    <router-outlet></router-outlet>
+  </div>
+</div>
+
+<app-drawer [position]="'start'" [isOpen]="toggleSidebar" (drawerClosed)="toggleSidebar = false">
+  <app-sidebar (close)="toggleSidebar = false"></app-sidebar>
+</app-drawer>
