@@ -1,6 +1,6 @@
 import { Type } from '@angular/core';
 
-export interface SidebarMenuItem {
+export interface TabBarItem {
   name: string;
   icon: Type<any>;
   route: string;

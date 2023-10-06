@@ -1,5 +1,5 @@
-<div class="h-screen overflow-hidden border-b border-[#efefea] py-5">
-  <div class="flex flex-row items-center justify-between px-4">
+<div class="h-screen overflow-hidden border-b border-primary py-2">
+  <div class="flex flex-row items-center justify-between px-4 py-2">
     <div class="flex flex-row">
       <app-company-icon></app-company-icon>
     </div>
@@ -11,16 +11,16 @@
   </div>
 
   <!-- menu -->
-  <div class="mt-6 flex h-[calc(100%-5rem)] flex-col overflow-y-auto border-y border-primary">
-    <div *ngFor="let item of menu" class="px-6">
+  <div class="flex h-[calc(100%-5rem)] flex-col overflow-y-auto border-y border-primary py-2">
+    <div *ngFor="let item of menu" class="px-2">
       <a
         [routerLink]="['/panel', item.route]"
         routerLinkActive="menu-active-link"
-        class="my-1 flex cursor-pointer items-center rounded px-2 py-3"
-        [ngClass]="item.route === activeRoute ? 'bg-[#f5f5eb]' : ''"
+        class="my-1 flex cursor-pointer items-center rounded px-2 py-3 hover:bg-secondary"
+        [ngClass]="item.route === activeRoute ? 'bg-secondary  font-bold' : ''"
         (click)="getActiveRouteSegment()">
         <ng-container [ngComponentOutlet]="item.icon"></ng-container>
-        <div class="ms-3 w-[60%] truncate font-semibold">{{item.name|titlecase}}</div>
+        <div class="ms-3 w-[60%] truncate">{{item.name|titlecase}}</div>
       </a>
     </div>
   </div>

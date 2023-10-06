@@ -3,14 +3,15 @@ import { CommonModule } from '@angular/common';
 import { Router, NavigationEnd, RouterLink } from '@angular/router';
 import { Subscription, filter } from 'rxjs';
 import { CloseIconComponent } from 'app/common/icons/close-icon.component';
-import { SidebarMenuItem } from './sidebar.config';
+import { TabBarItem } from '../../../common/components/tab-bar/tab-bar.config';
 import { ColorsIconComponent } from 'app/common/icons/colors-icon.component';
 import { CompanyIconComponent } from 'app/common/icons/company-icon.component';
+import { TableIconComponent } from 'app/common/icons/table.icon';
 
 @Component({
   selector: 'app-sidebar',
   standalone: true,
-  imports: [CommonModule, CloseIconComponent, RouterLink, CompanyIconComponent],
+  imports: [CommonModule, CloseIconComponent, RouterLink, CompanyIconComponent, TableIconComponent],
   templateUrl: './sidebar.component.html',
 })
 export class SidebarComponent {
@@ -40,11 +41,16 @@ export class SidebarComponent {
     }
   }
 
-  menu: SidebarMenuItem[] = [
+  menu: TabBarItem[] = [
     {
       name: 'Colors',
       icon: ColorsIconComponent,
       route: 'colors',
+    },
+    {
+      name: 'Tables',
+      icon: TableIconComponent,
+      route: 'tables',
     },
   ];
 
