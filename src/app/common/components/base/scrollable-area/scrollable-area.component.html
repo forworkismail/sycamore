@@ -1,3 +1,8 @@
-<div [style.height]="height" class="overflow-y-auto border border-red-800">
+<div
+  [ngClass]="{
+    'overflow-y-auto': scrollBehavior === 'always', 
+    'overflow-y-hidden hover:overflow-y-auto': scrollBehavior === 'onHover'
+}"
+  [ngStyle]="{'height': height}">
   <ng-content></ng-content>
 </div>

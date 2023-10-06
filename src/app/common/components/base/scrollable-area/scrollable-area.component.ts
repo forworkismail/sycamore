@@ -1,12 +1,13 @@
 import { Component, Input } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { NgClass, NgStyle } from '@angular/common';
 
 @Component({
   selector: 'app-scrollable-area',
   standalone: true,
-  imports: [CommonModule],
+  imports: [NgClass, NgStyle],
   templateUrl: './scrollable-area.component.html',
 })
 export class ScrollableAreaComponent {
-  @Input() height = 'calc(100vh - 100px)';
+  @Input() height = '300px';
+  @Input() scrollBehavior: 'always' | 'onHover' = 'always';
 }
