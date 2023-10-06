@@ -6,7 +6,7 @@ import { Subscription, fromEvent, filter } from 'rxjs';
   standalone: true,
 })
 export class DocumentClickDirective {
-  @Input() excludeInsideElement = false;
+  @Input() excludeInsideElement = true;
   @Output() documentClick = new EventEmitter();
 
   private subscription: Subscription;
@@ -21,7 +21,6 @@ export class DocumentClickDirective {
 
   ngOnDestroy(): void {
     if (this.subscription) {
-      console.log('unsubscribe');
       this.subscription.unsubscribe();
     }
   }
