@@ -9,6 +9,10 @@ export const routes: Routes = [
         path: 'colors',
         loadComponent: () => import('./feature/colors/colors.component'),
       },
+      {
+        path: 'tables',
+        loadComponent: () => import('./feature/tables/tables.component'),
+      },
     ],
   },
 ];
