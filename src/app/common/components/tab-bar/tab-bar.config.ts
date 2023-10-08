@@ -1,7 +1,7 @@
 import { Type } from '@angular/core';
 
 export interface TabBarItem {
-  name: string;
+  label: string;
   icon: Type<any>;
-  route: string;
+  link: string;
 }
