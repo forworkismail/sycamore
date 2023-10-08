@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Output } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { NgClass, NgComponentOutlet, NgFor } from '@angular/common';
 import { Router, NavigationEnd, RouterLink } from '@angular/router';
 import { Subscription, filter } from 'rxjs';
 import { CloseIconComponent } from 'app/common/icons/close-icon.component';
@@ -11,7 +11,15 @@ import { TableIconComponent } from 'app/common/icons/table.icon';
 @Component({
   selector: 'app-sidebar',
   standalone: true,
-  imports: [CommonModule, CloseIconComponent, RouterLink, CompanyIconComponent, TableIconComponent],
+  imports: [
+    NgClass,
+    NgFor,
+    NgComponentOutlet,
+    CloseIconComponent,
+    RouterLink,
+    CompanyIconComponent,
+    TableIconComponent,
+  ],
   templateUrl: './sidebar.component.html',
 })
 export class SidebarComponent {
@@ -43,14 +51,14 @@ export class SidebarComponent {
 
   menu: TabBarItem[] = [
     {
-      name: 'Colors',
+      label: 'Colors',
       icon: ColorsIconComponent,
-      route: 'colors',
+      link: 'colors',
     },
     {
-      name: 'Tables',
+      label: 'Tables',
       icon: TableIconComponent,
-      route: 'tables',
+      link: 'tables',
     },
   ];
 

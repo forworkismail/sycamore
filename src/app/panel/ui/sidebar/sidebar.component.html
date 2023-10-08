@@ -4,7 +4,7 @@
       <app-company-icon></app-company-icon>
     </div>
     <div (click)="onClose()" class="" id="sidebar-button">
-      <button class="p-1 hover:bg-secondary">
+      <button class="p-1 hover:bg-tertiary">
         <app-close-icon></app-close-icon>
       </button>
     </div>
@@ -14,13 +14,13 @@
   <div class="flex h-[calc(100%-5rem)] flex-col overflow-y-auto border-y border-primary py-2">
     <div *ngFor="let item of menu" class="px-2">
       <a
-        [routerLink]="['/panel', item.route]"
+        [routerLink]="['/panel', item.link]"
         routerLinkActive="menu-active-link"
-        class="my-1 flex cursor-pointer items-center rounded px-2 py-3 hover:bg-secondary"
-        [ngClass]="item.route === activeRoute ? 'bg-secondary  font-bold' : ''"
+        class="my-1 flex cursor-pointer items-center rounded-lg px-2 py-3 transition-all hover:bg-tertiary"
+        [ngClass]="item.link === activeRoute ? 'bg-tertiary font-bold' : ''"
         (click)="getActiveRouteSegment()">
         <ng-container [ngComponentOutlet]="item.icon"></ng-container>
-        <div class="ms-3 w-[60%] truncate">{{item.name|titlecase}}</div>
+        <div class="ms-3 w-[60%] truncate">{{item.label }}</div>
       </a>
     </div>
   </div>
