@@ -1,0 +1,37 @@
+<div class="flex flex-col">
+  <div class="flex flex-row rounded-lg border font-bold">
+    <div class="flex items-center p-2">
+      <input type="checkbox" value="1" />
+    </div>
+
+    <ng-container *ngFor="let header of headers">
+      <ng-container *ngIf="header.show">
+        <div class="p-2" [ngClass]="header.class">{{ header.label }}</div>
+      </ng-container>
+    </ng-container>
+  </div>
+
+  <app-scrollable-area [height]="'450px'">
+    <div class="bg-secondary">
+      <div
+        *ngFor="let item of items"
+        class="hover:shadow-hover group relative flex flex-row border-b transition-shadow hover:cursor-pointer hover:shadow">
+        <div class="flex items-center p-2">
+          <input type="checkbox" value="1" />
+        </div>
+        <ng-container *ngFor="let header of headers">
+          <ng-container *ngIf="header.show">
+            <div class="p-2" [ngClass]="header.class">{{ header.label }}</div>
+          </ng-container>
+        </ng-container>
+        <div
+          [ngClass]="{'right-0': dir.value === 'ltr', 'left-0': dir.value === 'rtl'}"
+          class="absolute z-10 hidden bg-secondary px-2 pt-1 group-hover:flex">
+          <app-button [type]="'icon'">
+            <app-trash-icon></app-trash-icon>
+          </app-button>
+        </div>
+      </div>
+    </div>
+  </app-scrollable-area>
+</div>
