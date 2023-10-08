@@ -1,15 +1,21 @@
 import { Component, EventEmitter, Input, Output, SimpleChanges } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { NgClass, NgIf, NgStyle } from '@angular/common';
 
 @Component({
   selector: 'app-drawer',
   standalone: true,
-  imports: [CommonModule],
-  templateUrl: './drawer.component.html',
+  imports: [NgIf, NgStyle, NgClass],
+  template: `
+  <div *ngIf="isOpen" class="overlay" (click)="closeDrawer()"></div>
+  <div class="drawer-container rounded-e-lg bg-app" [ngClass]="position" [ngStyle]="getStyle()">
+    <ng-content></ng-content>
+  </div>
+  `,
   styleUrls: ['./drawer.component.css'],
 })
 export class DrawerComponent {
   @Input() position: 'start' | 'end' = 'start';
+  @Input() width: number = 270;
   @Input() isOpen: boolean = false;
   @Output() drawerClosed = new EventEmitter<void>();
 
@@ -23,7 +29,7 @@ export class DrawerComponent {
       transformValue = isStart ? 'translateX(-100%)' : 'translateX(100%)';
     }
 
-    return { transform: transformValue };
+    return { transform: transformValue, width: this.width + 'px' };
   }
 
   ngOnChanges(changes: SimpleChanges) {
