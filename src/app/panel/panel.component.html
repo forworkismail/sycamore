@@ -1,13 +1,26 @@
-<div class="grid grid-cols-[1fr,1150px,1fr] grid-rows-[55px,1fr]">
+<div class="grid h-screen grid-cols-[1fr,1200px,1fr] grid-rows-[55px,calc(100vh-55px)] space-y-2">
   <div
-    class="sticky top-0 z-50 col-start-1 col-end-3 row-start-1 row-end-2 flex flex-row items-center overflow-y-auto border-b border-primary backdrop-blur-2xl">
-    <div class="flex flex-row items-center justify-between space-x-6 px-4">
+    class="sticky top-0 z-50 col-start-1 col-end-[-1] row-start-1 row-end-2 grid grid-cols-[1fr,1200px,1fr] items-center border py-2 backdrop-blur-2xl">
+    <div class="col-start-1 col-end-2 mx-2 flex flex-row items-center space-x-2 rtl:space-x-reverse">
       <div class="cursor-pointer" (click)="onToggleSidebar()">
         <app-sidebar-icon></app-sidebar-icon>
       </div>
-      <div class="ms-4 flex flex-row items-center space-x-2">
-        <app-company-icon></app-company-icon>
-        <app-text-title>{{ this.activeRoute | titlecase }}</app-text-title>
+      <app-text-title>{{ this.activeRoute | titlecase }}</app-text-title>
+    </div>
+
+    <div
+      class="col-start-2 col-end-3 ms-[180px] flex h-full min-w-[300px] max-w-[600px] flex-row items-center space-x-2 rounded-lg border bg-secondary text-primary transition-all duration-300 ease-in-out focus-within:max-w-[700px] focus-within:border focus-within:border-secondary">
+      <div class="relative ms-4 h-full w-[92%]">
+        <input
+          type="text"
+          class="h-full w-full bg-transparent text-primary outline-none"
+          placeholder="Search in customers" />
+      </div>
+
+      <div class="flex w-[8%] items-center justify-center px-2">
+        <app-button [type]="'icon'">
+          <app-search-icon (click)="abc()" [height]="20" [width]="20"></app-search-icon>
+        </app-button>
       </div>
     </div>
   </div>

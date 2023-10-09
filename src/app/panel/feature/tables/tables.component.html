@@ -1,15 +1,15 @@
-<div class="mt-4 grid grid-cols-[180px,1fr] grid-rows-[1fr]">
-  <div class="col-start-1 col-end-2 flex flex-col space-y-2">
+<div class="mt-4 grid h-full grid-cols-[180px,1fr]">
+  <div class="col-start-1 col-end-2 flex h-full flex-col space-y-2">
     <app-button>
       <app-plus-icon></app-plus-icon>
       <div>New</div>
     </app-button>
-    <app-scrollable-area [height]="'400px'" [scrollBehavior]="'onHover'">
+    <app-scrollable-area [scrollBehavior]="'onHover'">
       <app-vertical-tab-bar [tabs]="tabBarItems" [activeRoute]="'/panel/tables'"></app-vertical-tab-bar>
     </app-scrollable-area>
   </div>
   <div class="col-start-2 col-end-[-1] flex flex-col space-y-2">
-    <div class="border-secondary flex flex-row items-start rounded-lg border p-1">
+    <div class="flex flex-row items-start rounded-lg border p-1">
       <app-button [type]="'icon'">
         <app-trash-icon></app-trash-icon>
       </app-button>
