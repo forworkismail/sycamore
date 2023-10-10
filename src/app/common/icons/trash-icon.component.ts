@@ -16,6 +16,6 @@ import { CommonModule } from '@angular/common';
   `,
 })
 export class TrashIconComponent {
-  @Input() height = '17';
-  @Input() width = '18';
+  @Input() height = 16;
+  @Input() width = 16;
 }
