@@ -1,12 +1,6 @@
-import { ElementRef, EventEmitter, Injectable } from '@angular/core';
-import {
-  Overlay,
-  OverlayConfig,
-  OverlayRef,
-  PositionStrategy,
-} from '@angular/cdk/overlay';
-import { ComponentPortal } from '@angular/cdk/portal';
-import { OverlayComponent } from './overlay.component';
+import { Component, ElementRef, Injectable } from '@angular/core';
+import { Overlay, OverlayConfig, OverlayRef, PositionStrategy } from '@angular/cdk/overlay';
+import { ComponentPortal, ComponentType } from '@angular/cdk/portal';
 
 @Injectable({
   providedIn: 'root',
@@ -16,15 +10,13 @@ export class OverlayService {
 
   constructor(private overlay: Overlay) {}
 
-  showOverlayForComponent(target: ElementRef): void {
+  showOverlayForComponent(target: ElementRef, componentToOverlay: ComponentType<Component>): void {
     const positionStrategy = this.getPosition(target);
     const overlayConfig = new OverlayConfig({
       positionStrategy: positionStrategy,
     });
-
     this.overlayRef = this.overlay.create(overlayConfig);
-    this.overlayRef.attach(new ComponentPortal(OverlayComponent));
-    this.overlayRef.backdropClick().subscribe(() => this.overlayRef?.detach());
+    this.overlayRef.attach(new ComponentPortal(componentToOverlay));
   }
 
   private getPosition(target: ElementRef): PositionStrategy {
@@ -61,5 +53,12 @@ export class OverlayService {
       ]);
 
     return positionStrategy;
+  }
+
+  close(): void {
+    if (this.overlayRef) {
+      // Detach the content from the overlay but don't destroy it
+      this.overlayRef.detach();
+    }
   }
 }

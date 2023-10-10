@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { CommonModule, NgClass } from '@angular/common';
+import { NgClass } from '@angular/common';
 import { TEXT_TITLE_STYLES, TextTitleType } from './text-title.options';
 
 @Component({
