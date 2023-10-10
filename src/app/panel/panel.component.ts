@@ -12,6 +12,8 @@ import { SearchIconComponent } from '../common/icons/search-icon.component';
 import { ConfigurationIconComponent } from '../common/icons/configuration-icon.component';
 import { ButtonComponent } from '../common/components/button/button.component';
 import { ListComponent } from '../common/components/list/list.component';
+import { OverlayService } from 'app/common/components/base/overlay/overlay.service';
+import { SearchComponent } from '../common/components/search/search.component';
 
 @Component({
   selector: 'app-panel',
@@ -30,16 +32,15 @@ import { ListComponent } from '../common/components/list/list.component';
     ConfigurationIconComponent,
     ButtonComponent,
     ListComponent,
+    SearchComponent,
   ],
 })
 export default class PanelComponent {
-  @ViewChild('triggerButton', { static: true }) triggerButton: ElementRef = {} as ElementRef;
   activeRoute = '';
   routerSubscription = new Subscription();
   toggleSidebar = false;
 
   private router = inject(Router);
-  // private overlayService = inject(OverlayService);
 
   ngOnInit() {
     this.getActiveRouteSegment();
@@ -55,12 +56,5 @@ export default class PanelComponent {
 
   onToggleSidebar() {
     this.toggleSidebar = !this.toggleSidebar;
-  }
-
-  // showOverlay(): void {
-  //   this.overlayService.showOverlayForComponent(this.triggerButton);
-  // }
-  abc() {
-    console.log('ABC');
   }
 }

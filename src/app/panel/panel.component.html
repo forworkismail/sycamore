@@ -7,26 +7,10 @@
       </div>
       <app-text-title>{{ this.activeRoute | titlecase }}</app-text-title>
     </div>
-
-    <div
-      class="col-start-2 col-end-3 ms-[180px] flex h-full min-w-[300px] max-w-[600px] flex-row items-center space-x-2 rounded-lg border bg-secondary text-primary transition-all duration-300 ease-in-out focus-within:max-w-[700px] focus-within:border focus-within:border-secondary">
-      <div class="relative ms-4 h-full w-[92%]">
-        <input
-          type="text"
-          class="h-full w-full bg-transparent text-primary outline-none"
-          placeholder="Search in customers" />
-      </div>
-
-      <div class="flex w-[8%] items-center justify-center px-2">
-        <app-button [type]="'icon'">
-          <app-search-icon (click)="abc()" [height]="20" [width]="20"></app-search-icon>
-        </app-button>
-      </div>
-    </div>
+    <app-search></app-search>
   </div>
 
   <div class="col-start-2 col-end-3 row-start-2 row-end-3">
-    <!-- <button class="bg-primary px-2 py-4 text-white" #triggerButton (click)="showOverlay()">Show Overlay</button> -->
     <router-outlet></router-outlet>
   </div>
 </div>
