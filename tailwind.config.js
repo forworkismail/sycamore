@@ -9,22 +9,25 @@ module.exports = {
     extend: {
       backgroundColor: {
         'app': '#fafaf5',
-
-        'primary': '#18181b',
+        'primary': '#0f172a',
         'secondary': '#f4f4f5',
+        'tertiary': '#eaeaed',
         'danger': '#ef4444',
       },
       textColor: {
         'primary': '#09090b',
       },
       borderColor: {
-        'primary': '#efefea',
+        'primary': '#eaeaed',
+        'secondary': '#a1a1aa',
         'danger': '#ef4444',
       }
     },
   },
   variants: {
-    extend: {},
+    extend: {
+      display: ["group-hover"]
+    },
   },
   plugins: [],
 };
