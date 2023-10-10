@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, Renderer2 } from '@angular/core';
+import { Component, ElementRef, Input } from '@angular/core';
 import { NgClass, NgStyle } from '@angular/common';
 
 @Component({
@@ -20,9 +20,9 @@ export class ScrollableAreaComponent {
   @Input() scrollBehavior: 'always' | 'onHover' = 'always';
   @Input() height: string | null = null;
   containerStyle: { height?: string } = {};
-  constructor(private elRef: ElementRef, private renderer: Renderer2) {}
+  constructor(private elRef: ElementRef) {}
 
-  ngAfterViewInit() {
+  ngOnInit() {
     if (!this.height) {
       const positionFromTop = this.elRef.nativeElement.getBoundingClientRect().top;
       this.containerStyle.height = `calc(100vh - ${positionFromTop}px - 20px)`;
