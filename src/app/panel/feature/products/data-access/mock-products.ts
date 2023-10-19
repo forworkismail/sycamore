@@ -1,4 +1,4 @@
-import { Product } from './store/table.state';
+import { Product } from './store/product.state';
 
 export const MOCK_PRODUCTS: Product[] = [
   {

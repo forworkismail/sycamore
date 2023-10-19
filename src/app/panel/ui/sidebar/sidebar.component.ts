@@ -56,9 +56,9 @@ export class SidebarComponent {
       link: 'colors',
     },
     {
-      label: 'Tables',
+      label: 'Products',
       icon: TableIconComponent,
-      link: 'tables',
+      link: 'products',
     },
   ];
 

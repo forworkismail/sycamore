@@ -10,14 +10,15 @@ import { TrashIconComponent } from 'app/common/icons/trash-icon.component';
 import { DraftIconComponent } from 'app/common/icons/draft-icon.component';
 import { EllipsisIconComponent } from 'app/common/icons/ellipsis-icon.component';
 import { ListComponent } from 'app/common/components/list/list.component';
+import { ProductsFacade } from './data-access/store/product.facade';
 import { Observable } from 'rxjs';
-import { TableFacade } from './data-access/store/table.facade';
-import { Product } from './data-access/store/table.state';
+import { Product } from './data-access/store/product.state';
+import { TableColumn } from 'app/common/store/table/table.state';
 
 @Component({
-  selector: 'app-tables',
+  selector: 'app-products',
   standalone: true,
-  templateUrl: './tables.component.html',
+  templateUrl: './products.component.html',
   imports: [
     NgFor,
     ScrollableAreaComponent,
@@ -30,13 +31,19 @@ import { Product } from './data-access/store/table.state';
     AsyncPipe,
   ],
 })
-export default class TablesComponent {
-  private readonly tableFacade = inject(TableFacade);
-  products$: Observable<Product[]> = this.tableFacade.allProducts$;
+export default class ProductsComponent {
+  private readonly productsFacade = inject(ProductsFacade);
+  products$: Observable<Product[]> = this.productsFacade.allProducts$;
+  columns$: Observable<TableColumn<Product>[]> = this.productsFacade.columns$;
 
-  ngOnInit() {
-    this.tableFacade.loadProducts();
+  // ngOnInit() {
+  //   this.loadProducts();
+  // }
+
+  loadProducts() {
+    this.productsFacade.loadProducts();
   }
+
   tabBarItems: TabBarItem[] = [
     {
       label: 'Primary',

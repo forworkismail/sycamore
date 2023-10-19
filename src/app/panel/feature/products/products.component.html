@@ -1,11 +1,6 @@
 <div class="mt-4 grid h-full grid-cols-[180px,1fr]">
   <div class="col-start-1 col-end-2 flex h-full flex-col space-y-2">
-    <!-- <div *ngFor="let product of products$ | async">
-      <h2>{{ product.name }}</h2>
-      <p>{{ product.description }}</p>
-      <hr />
-    </div> -->
-    <app-button>
+    <app-button (click)="loadProducts()">
       <app-plus-icon></app-plus-icon>
       <div>New</div>
     </app-button>
@@ -22,6 +17,6 @@
         <app-ellipsis-icon></app-ellipsis-icon>
       </app-button>
     </div>
-    <app-list></app-list>
+    <app-list [rows]="(products$ | async) ?? []" [columns]="(columns$ | async) ?? []"></app-list>
   </div>
 </div>
