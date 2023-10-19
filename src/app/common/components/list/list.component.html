@@ -2,25 +2,24 @@
   <div class="flex items-center p-2">
     <input type="checkbox" value="1" />
   </div>
-
-  <ng-container *ngFor="let header of headers">
-    <ng-container *ngIf="header.show">
-      <div class="p-2" [ngClass]="header.class">{{ header.label }}</div>
-    </ng-container>
+  <ng-container *ngFor="let column  of columns">
+    <div class="truncate p-2" [ngStyle]="{'width': getColumnWidthClass(column, columns.length)}">
+      {{ column.label }}
+    </div>
   </ng-container>
 </div>
 <app-scrollable-area>
   <div class="bg-secondary">
     <div
-      *ngFor="let item of items"
+      *ngFor="let row of rows"
       class="hover:shadow-hover group relative flex flex-row border-b transition-shadow hover:cursor-pointer hover:shadow">
       <div class="flex items-center p-2">
         <input type="checkbox" value="1" />
       </div>
-      <ng-container *ngFor="let header of headers">
-        <ng-container *ngIf="header.show">
-          <div class="p-2" [ngClass]="header.class">{{ header.label }}</div>
-        </ng-container>
+      <ng-container *ngFor="let column of columns">
+        <div class="truncate p-2" [ngStyle]="{'width': getColumnWidthClass(column, columns.length)}">
+          {{ column.mapper(row) }}
+        </div>
       </ng-container>
       <div
         [ngClass]="{'right-0': dir.value === 'ltr', 'left-0': dir.value === 'rtl'}"
