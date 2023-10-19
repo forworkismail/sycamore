@@ -14,7 +14,6 @@ export const appConfig: ApplicationConfig = {
         onSameUrlNavigation: 'reload',
       }),
     ),
-    
     provideStore(),
     provideStoreDevtools({
       maxAge: 25, // Retains last 25 states
