@@ -11,9 +11,10 @@ import { DraftIconComponent } from 'app/common/icons/draft-icon.component';
 import { EllipsisIconComponent } from 'app/common/icons/ellipsis-icon.component';
 import { ListComponent } from 'app/common/components/list/list.component';
 import { ProductsFacade } from './data-access/store/product.facade';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { Product } from './data-access/store/product.state';
 import { TableColumn } from 'app/common/store/table/table.state';
+import { GetAllOptions } from 'app/common/services/data-service.interface';
 
 @Component({
   selector: 'app-products',
@@ -36,12 +37,12 @@ export default class ProductsComponent {
   products$: Observable<Product[]> = this.productsFacade.allProducts$;
   columns$: Observable<TableColumn<Product>[]> = this.productsFacade.columns$;
 
-  // ngOnInit() {
-  //   this.loadProducts();
-  // }
-
-  loadProducts() {
+  ngOnInit() {
     this.productsFacade.loadProducts();
+  }
+
+  changePage(page: number) {
+    this.productsFacade.changePage(page);
   }
 
   tabBarItems: TabBarItem[] = [

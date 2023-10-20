@@ -34,12 +34,6 @@ export const productColumns: TableColumn<Product>[] = [
     type: 'text',
     mapper: (product: Product) => `${product.category}`,
   },
-  {
-    id: 5,
-    label: 'abc',
-    type: 'text',
-    mapper: (product: Product) => `${product.category}`,
-  },
 ];
 
 interface ProductTableState extends TableState<Product> {

@@ -4,7 +4,7 @@ import { tableApiActions } from 'app/common/store/table/table.actions';
 import { Product, createInitialProductTableState } from './product.state';
 import { createTableAdapter } from 'app/common/store/table/table.state';
 
-const { loadItems, loadItemsSuccess, loadItemsFailure } = tableApiActions<Product>();
+const { loadItems, loadItemsSuccess, loadItemsFailure, changePage } = tableApiActions<Product>();
 
 export const productFeature = createFeature({
   name: 'products',
@@ -25,6 +25,15 @@ export const productFeature = createFeature({
         ...state,
         loading: false,
         error,
+      };
+    }),
+    on(changePage, (state, { page }) => {
+      return {
+        ...state,
+        pagination: {
+          ...state.pagination,
+          currentPage: page,
+        },
       };
     }),
   ),
