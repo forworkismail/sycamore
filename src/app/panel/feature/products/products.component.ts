@@ -44,7 +44,7 @@ export default class ProductsComponent {
   }
 
   ngOnInit() {
-    this.tableFacade.loadProducts();
+    this.tableFacade.loadItems();
   }
 
   changePage(page: number) {
