@@ -21,18 +21,21 @@ export const productColumns: TableColumn<Product>[] = [
     type: 'text',
     width: 0.5,
     mapper: (product: Product) => `${product.name} ${product.description}`,
+    sortColumnBy: 'name',
   },
   {
     id: 3,
     label: 'price',
     type: 'text',
     mapper: (product: Product) => `${product.price} $`,
+    sortColumnBy: 'price',
   },
   {
     id: 4,
     label: 'category',
     type: 'text',
     mapper: (product: Product) => `${product.category}`,
+    sortColumnBy: 'category',
   },
 ];
 
@@ -47,5 +50,9 @@ export function createInitialProductTableState(): ProductTableState {
     columns: productColumns,
     selectedProductId: null,
     type: ProductType.ELECTRONICS,
+    sort: {
+      column: 'name',
+      direction: 'asc',
+    },
   };
 }

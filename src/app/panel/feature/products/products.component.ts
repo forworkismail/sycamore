@@ -13,8 +13,7 @@ import { ListComponent } from 'app/common/components/list/list.component';
 import { ProductsFacade } from './data-access/store/product.facade';
 import { Observable, Subject } from 'rxjs';
 import { Product } from './data-access/store/product.state';
-import { TableColumn } from 'app/common/store/table/table.state';
-import { GetAllOptions } from 'app/common/services/data-service.interface';
+import { Sort, TableColumn } from 'app/common/store/table/table.state';
 
 @Component({
   selector: 'app-products',
@@ -36,6 +35,7 @@ export default class ProductsComponent {
   private readonly productsFacade = inject(ProductsFacade);
   products$: Observable<Product[]> = this.productsFacade.allProducts$;
   columns$: Observable<TableColumn<Product>[]> = this.productsFacade.columns$;
+  sortColumn$: Observable<Sort<Product>> = this.productsFacade.sort$;
 
   ngOnInit() {
     this.productsFacade.loadProducts();
@@ -62,4 +62,8 @@ export default class ProductsComponent {
       link: '/panel/tables/inactive',
     },
   ];
+
+  changeSort(sort: Sort<Product>) {
+    this.productsFacade.changeSort(sort);
+  }
 }

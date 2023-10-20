@@ -1,28 +1,15 @@
 import { Observable } from 'rxjs';
+import { Sort, Pagination, Filters } from '../store/table/table.state';
 
-export interface Sort {
-  column: string;
-  direction: 'asc' | 'desc';
-}
-
-export interface Filter {
-  [key: string]: any; // This can be a key-value pair where the key is the property to filter on and the value is the filter value. Adjust as needed.
-}
-
-export interface Pagination {
-  currentPage: number;
-  pageSize: number;
-}
-
-export interface GetAllOptions {
-  sort: Sort;
-  filters: Filter;
+export interface GetAllOptions<T> {
+  sort: Sort<T>;
+  filters: Filters;
   pagination: Pagination;
 }
 
 export interface DataServiceInterface<T> {
   getById(id: string): Observable<T | undefined>;
-  getAll(options: GetAllOptions): Observable<T[]>;
+  getAll(options: GetAllOptions<T>): Observable<T[]>;
   add(item: T): Observable<T>;
   setBaseUrl(url: string): void;
   update(item: T): Observable<T>;

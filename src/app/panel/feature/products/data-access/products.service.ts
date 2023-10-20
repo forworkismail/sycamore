@@ -13,7 +13,7 @@ export class ProductService {
     this.dataService.setBaseUrl('api/products'); // Assuming this is the URL to your product API
   }
 
-  getAllProducts(options: GetAllOptions): Observable<Product[]> {
+  getAllProducts(options: GetAllOptions<Product>): Observable<Product[]> {
     let result = [...this.products]; // Create a shallow copy to avoid modifying the original array
 
     // Filter products based on the filter options
@@ -27,6 +27,31 @@ export class ProductService {
       if (options.filters['category']) {
         result = result.filter(product => product.category === options.filters['category']);
       }
+    }
+
+    if (options.sort) {
+      result = result.sort((a, b) => {
+        let valueA = a[options.sort.column];
+        let valueB = b[options.sort.column];
+
+        if (typeof valueA === 'string') {
+          valueA = valueA.toLowerCase();
+        }
+
+        if (typeof valueB === 'string') {
+          valueB = valueB.toLowerCase();
+        }
+
+        if (valueA < valueB) {
+          return options.sort.direction === 'asc' ? -1 : 1;
+        }
+
+        if (valueA > valueB) {
+          return options.sort.direction === 'asc' ? 1 : -1;
+        }
+
+        return 0; // if values are equal
+      });
     }
 
     // Paginate products based on the pagination options

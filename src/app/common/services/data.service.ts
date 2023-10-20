@@ -19,7 +19,7 @@ export class DataService<T> implements DataServiceInterface<T> {
     return this.http.get<T | undefined>(`${this.baseUrl}/${id}`);
   }
 
-  getAll(options: GetAllOptions): Observable<T[]> {
+  getAll(options: GetAllOptions<T>): Observable<T[]> {
     return this.http.get<T[]>(this.baseUrl, { params: this.createHttpParams(options) });
   }
 
@@ -40,7 +40,7 @@ export class DataService<T> implements DataServiceInterface<T> {
     return this.http.request<boolean>('delete', this.baseUrl, { body: { ids: idsArray } });
   }
 
-  private createHttpParams(options: GetAllOptions): any {
+  private createHttpParams(options: GetAllOptions<T>): any {
     let params: any = {};
     if (options.pagination) {
       params.currentPage = options.pagination.currentPage.toString();
