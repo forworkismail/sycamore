@@ -4,13 +4,13 @@ import { ButtonComponent } from 'app/common/components/button/button.component';
 import { PlusIconComponent } from 'app/common/icons/plus-icon.component';
 import { TabBarItem } from 'app/common/components/tab-bar/tab-bar.config';
 import { ColorsIconComponent } from 'app/common/icons/colors-icon.component';
-import { AsyncPipe, NgFor } from '@angular/common';
+import { AsyncPipe, NgFor, NgIf } from '@angular/common';
 import { VerticalTabBarComponent } from 'app/common/components/tab-bar/vertical-tab-bar.component';
 import { TrashIconComponent } from 'app/common/icons/trash-icon.component';
 import { DraftIconComponent } from 'app/common/icons/draft-icon.component';
 import { EllipsisIconComponent } from 'app/common/icons/ellipsis-icon.component';
 import { ListComponent } from 'app/common/components/list/list.component';
-import { Observable, Subject } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Product, createInitialProductTableState } from './data-access/store/product.state';
 import { Sort, TableColumn } from 'app/common/store/table/table.state';
 import { TableFacade } from 'app/common/store/table/table.facade';
@@ -21,6 +21,7 @@ import { TableFacade } from 'app/common/store/table/table.facade';
   templateUrl: './products.component.html',
   imports: [
     NgFor,
+    NgIf,
     ScrollableAreaComponent,
     ButtonComponent,
     PlusIconComponent,
