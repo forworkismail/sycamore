@@ -1,7 +1,8 @@
 import { Routes } from '@angular/router';
 import { provideState } from '@ngrx/store';
 import { provideEffects } from '@ngrx/effects';
-import { productFeature } from './feature/products/data-access/store/product.reducer';
+import { tableFeature } from 'app/common/store/table/table.reducer';
+import { Product, createInitialProductTableState } from './feature/products/data-access/store/product.state';
 import { ProductEffects } from './feature/products/data-access/store/product.effects';
 
 export const routes: Routes = [
@@ -16,12 +17,11 @@ export const routes: Routes = [
       {
         path: 'products',
         loadComponent: () => import('./feature/products/products.component'),
-        providers: [provideState(productFeature), provideEffects(ProductEffects)],
+        providers: [
+          provideState(tableFeature<Product>(createInitialProductTableState())),
+          provideEffects(ProductEffects),
+        ],
       },
-      // {
-      //   path: 'courses',
-      //   loadComponent: () => import('./feature/courses/courses.component'),
-      // },
     ],
   },
 ];

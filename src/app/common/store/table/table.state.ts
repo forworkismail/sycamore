@@ -2,12 +2,12 @@ import { EntityAdapter, EntityState, createEntityAdapter } from '@ngrx/entity';
 
 export interface TableState<T> extends EntityState<T> {
   columns: TableColumn<T>[];
-  displayedColumnIds: string[];
   sort: Sort<T>;
   pagination: Pagination;
   filters: Filters;
   loading: boolean;
   error: string | null;
+  selectedItems: number[];
 }
 
 export interface TableColumn<T> {
@@ -41,7 +41,6 @@ export function createInitialTableState<T>(): TableState<T> {
   return {
     ...createTableAdapter<T>().getInitialState({
       columns: [],
-      displayedColumnIds: [],
       sort: {
         column: {} as keyof T,
         direction: 'asc',
@@ -56,6 +55,7 @@ export function createInitialTableState<T>(): TableState<T> {
       },
       loading: false,
       error: null,
+      selectedItems: [],
     }),
   };
 }

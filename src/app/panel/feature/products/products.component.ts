@@ -10,10 +10,10 @@ import { TrashIconComponent } from 'app/common/icons/trash-icon.component';
 import { DraftIconComponent } from 'app/common/icons/draft-icon.component';
 import { EllipsisIconComponent } from 'app/common/icons/ellipsis-icon.component';
 import { ListComponent } from 'app/common/components/list/list.component';
-import { ProductsFacade } from './data-access/store/product.facade';
 import { Observable, Subject } from 'rxjs';
-import { Product } from './data-access/store/product.state';
+import { Product, createInitialProductTableState } from './data-access/store/product.state';
 import { Sort, TableColumn } from 'app/common/store/table/table.state';
+import { TableFacade } from 'app/common/store/table/table.facade';
 
 @Component({
   selector: 'app-products',
@@ -32,17 +32,22 @@ import { Sort, TableColumn } from 'app/common/store/table/table.state';
   ],
 })
 export default class ProductsComponent {
-  private readonly productsFacade = inject(ProductsFacade);
-  products$: Observable<Product[]> = this.productsFacade.allProducts$;
-  columns$: Observable<TableColumn<Product>[]> = this.productsFacade.columns$;
-  sortColumn$: Observable<Sort<Product>> = this.productsFacade.sort$;
+  public readonly tableFacade = inject(TableFacade<Product>);
+  products$: Observable<Product[]> = this.tableFacade.allItems$;
+  columns$: Observable<TableColumn<Product>[]> = this.tableFacade.columns$;
+  sortColumn$: Observable<Sort<Product>> = this.tableFacade.sort$;
+  selectedItems$: Observable<number[]> = this.tableFacade.selectedItems$;
+
+  constructor() {
+    this.tableFacade.setInitialState(createInitialProductTableState());
+  }
 
   ngOnInit() {
-    this.productsFacade.loadProducts();
+    this.tableFacade.loadProducts();
   }
 
   changePage(page: number) {
-    this.productsFacade.changePage(page);
+    this.tableFacade.changePage(page);
   }
 
   tabBarItems: TabBarItem[] = [
@@ -62,8 +67,4 @@ export default class ProductsComponent {
       link: '/panel/tables/inactive',
     },
   ];
-
-  changeSort(sort: Sort<Product>) {
-    this.productsFacade.changeSort(sort);
-  }
 }

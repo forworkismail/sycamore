@@ -1,16 +1,16 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { Product } from './store/product.state';
 import { MOCK_PRODUCTS } from './mock-products';
-import { GetAllOptions } from 'app/common/services/data-service.interface';
-import { DataService } from 'app/common/services/data.service';
+import { GetAllOptions, TableService } from 'app/common/store/table/table.service';
 
 @Injectable({ providedIn: 'root' })
 export class ProductService {
   private products: Product[] = MOCK_PRODUCTS;
+  private readonly tableService = inject(TableService<Product>);
 
-  constructor(private dataService: DataService<Product>) {
-    this.dataService.setBaseUrl('api/products'); // Assuming this is the URL to your product API
+  constructor() {
+    this.tableService.setBaseUrl('api/products');
   }
 
   getAllProducts(options: GetAllOptions<Product>): Observable<Product[]> {
@@ -65,23 +65,23 @@ export class ProductService {
   }
 
   getProductById(id: number): Observable<Product | undefined> {
-    return this.dataService.getById(id.toString());
+    return this.tableService.getById(id.toString());
   }
 
   addProduct(product: Product): Observable<Product> {
-    return this.dataService.add(product);
+    return this.tableService.add(product);
   }
 
   updateProduct(product: Product): Observable<Product> {
-    return this.dataService.update(product);
+    return this.tableService.update(product);
   }
 
   deleteProduct(id: number): Observable<boolean> {
-    return this.dataService.delete(id.toString());
+    return this.tableService.delete(id.toString());
   }
 
   deleteManyProducts(ids: Set<number>): Observable<boolean> {
     const stringIds = new Set<string>(Array.from(ids).map(String));
-    return this.dataService.deleteMany(stringIds);
+    return this.tableService.deleteMany(stringIds);
   }
 }

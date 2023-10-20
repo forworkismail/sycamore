@@ -21,6 +21,9 @@
       [rows]="(products$ | async) ?? []"
       [columns]="(columns$ | async) ?? []"
       [sortColumn]="(sortColumn$ | async)"
-      (sortColumnChange)="changeSort($event)"></app-list>
+      (sortColumnChange)="tableFacade.changeSort($event)"
+      (itemSelected)="tableFacade.toggleSelect($event)"
+      (allSelected)="tableFacade.toggleSelectAll($event)"
+      [selectedItems]="(selectedItems$ | async) ?? []"></app-list>
   </div>
 </div>

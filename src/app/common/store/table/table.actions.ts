@@ -1,6 +1,6 @@
 import { createActionGroup, props } from '@ngrx/store';
-import { GetAllOptions } from 'app/common/services/data-service.interface';
-import { Sort, TableColumn } from './table.state';
+import { Sort } from './table.state';
+import { GetAllOptions } from './table.service';
 
 export function tableApiActions<T>() {
   return createActionGroup({
@@ -11,6 +11,8 @@ export function tableApiActions<T>() {
       loadItemsFailure: props<{ error: string }>(),
       changePage: props<{ page: number }>(),
       changeSort: props<{ sort: Sort<T> }>(),
+      selectItem: props<{ id: number }>(),
+      selectAllItems: props<{ selected: boolean }>(),
     },
   });
 }

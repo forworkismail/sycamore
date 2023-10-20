@@ -30,9 +30,10 @@ import { UpArrowIconComponent } from '../../icons/uparrow-icon.component';
     UpArrowIconComponent,
   ],
 })
-export class ListComponent<T> {
+export class ListComponent<T extends { id: number }> {
   @Input() columns: TableColumn<T>[] = [];
   @Input() rows: T[] = [];
+  @Input() selectedItems: number[] = [];
 
   @Input() sortColumn: Sort<T> | null = {
     column: {} as keyof T,
@@ -40,6 +41,10 @@ export class ListComponent<T> {
   };
 
   @Output() sortColumnChange = new EventEmitter<Sort<T>>();
+  @Output() itemSelected = new EventEmitter<number>();
+  @Output() allSelected = new EventEmitter<boolean>();
+
+  selectAll: boolean = false;
 
   constructor(public dir: Directionality) {}
 
@@ -61,5 +66,14 @@ export class ListComponent<T> {
         direction: 'asc',
       });
     }
+  }
+
+  onSelectAll(event: Event) {
+    const isChecked = (event.target as HTMLInputElement).checked;
+    this.allSelected.emit(isChecked);
+  }
+
+  onSelectItem(id: number) {
+    this.itemSelected.emit(id);
   }
 }

@@ -1,12 +1,28 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { DataServiceInterface, GetAllOptions } from './data-service.interface';
+import { Sort, Filters, Pagination } from './table.state';
+
+export interface GetAllOptions<T> {
+  sort: Sort<T>;
+  filters: Filters;
+  pagination: Pagination;
+}
+
+export interface TableServiceInterface<T> {
+  getById(id: string): Observable<T | undefined>;
+  getAll(options: GetAllOptions<T>): Observable<T[]>;
+  add(item: T): Observable<T>;
+  setBaseUrl(url: string): void;
+  update(item: T): Observable<T>;
+  delete(id: string): Observable<boolean>;
+  deleteMany(ids: Set<string>): Observable<boolean>;
+}
 
 @Injectable({
   providedIn: 'root',
 })
-export class DataService<T> implements DataServiceInterface<T> {
+export class TableService<T> implements TableServiceInterface<T> {
   private baseUrl: string = '';
 
   constructor(private http: HttpClient) {}
