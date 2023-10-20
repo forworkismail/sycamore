@@ -1,19 +1,12 @@
-import { createActionGroup, emptyProps, props } from '@ngrx/store';
-// import { Product } from '../../../panel/feature/products/data-access/store/product.state';
-
-// export const tablePageActions = createActionGroup({
-//   source: 'Table Page',
-//   events: {
-//     loadTable: emptyProps(),
-//     selectItem: props<{ id: number }>(),
-//   },
-// });
+import { createActionGroup, props } from '@ngrx/store';
+import { GetAllOptions } from 'app/common/services/data-service.interface';
 
 export function tableApiActions<T>() {
   return createActionGroup({
     source: 'Table API',
     events: {
-      loadItems: emptyProps(),
+      changePage: props<{ page: number }>(),
+      loadItems: props<{ options: GetAllOptions }>(),
       loadItemsSuccess: props<{ data: T[] }>(),
       loadItemsFailure: props<{ error: string }>(),
     },

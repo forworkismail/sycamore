@@ -3,9 +3,9 @@ import { EntityAdapter, EntityState, createEntityAdapter } from '@ngrx/entity';
 export interface TableState<T> extends EntityState<T> {
   columns: TableColumn<T>[];
   displayedColumnIds: string[];
-  sorting: SortingState;
+  sorting: SortState;
   pagination: PaginationState;
-  filtering: FilteringState;
+  filtering: FilterState;
   loading: boolean;
   error: string | null;
 }
@@ -18,18 +18,17 @@ export interface TableColumn<T> {
   mapper: (entity: T) => string;
 }
 
-export interface SortingState {
-  columnId: number;
+export interface SortState {
+  column: string;
   direction: 'asc' | 'desc';
 }
 
 export interface PaginationState {
   currentPage: number;
   pageSize: number;
-  totalItems: number;
 }
 
-export interface FilteringState {
+export interface FilterState {
   searchTerm: string;
   category?: string;
 }
@@ -44,13 +43,12 @@ export function createInitialTableState<T>(): TableState<T> {
       columns: [],
       displayedColumnIds: [],
       sorting: {
-        columnId: 1,
+        column: 'id',
         direction: 'asc',
       },
       pagination: {
         currentPage: 1,
-        pageSize: 10,
-        totalItems: 0,
+        pageSize: 20,
       },
       filtering: {
         searchTerm: '',
