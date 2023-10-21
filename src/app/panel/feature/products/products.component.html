@@ -10,7 +10,7 @@
       <app-vertical-tab-bar [tabs]="tabBarItems" [activeRoute]="'/panel/tables'"></app-vertical-tab-bar>
     </app-scrollable-area>
   </div>
-  <div class="col-start-2 col-end-[-1] flex flex-col space-y-2">
+  <div class="col-start-2 col-end-[-1] flex flex-col">
     <div class="flex flex-row items-center justify-between rounded-lg border p-1 px-2">
       <div class="flex flex-row items-center space-x-2">
         <input
@@ -44,6 +44,7 @@
         </div>
       </div>
     </div>
+    <app-progress-bar [loading]="(loading$ | async) ?? false"></app-progress-bar>
     <app-list
       [rows]="(products$ | async) ?? []"
       [columns]="(columns$ | async) ?? []"

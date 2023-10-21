@@ -32,6 +32,7 @@ export class TableFacade<T> {
     map(([pagination, sort, filters]) => ({ pagination, sort, filters: filters })),
   );
   selection$: Observable<Select> = this.store.select(this.tableState.selectSelection);
+  loading$: Observable<boolean> = this.store.select(this.tableState.selectLoading);
 
   loadItems() {
     this.options$

@@ -16,6 +16,7 @@ import { Pagination, Select, Sort, TableColumn } from 'app/common/store/table/ta
 import { TableFacade } from 'app/common/store/table/table.facade';
 import { PaginationComponent } from '../../../common/components/pagination/pagination.component';
 import { RefreshIconComponent } from '../../../common/icons/refresh-icon.component';
+import { ProgressBarComponent } from '../../../common/components/progress-bar/progress-bar.component';
 
 @Component({
   selector: 'app-products',
@@ -34,6 +35,7 @@ import { RefreshIconComponent } from '../../../common/icons/refresh-icon.compone
     AsyncPipe,
     PaginationComponent,
     RefreshIconComponent,
+    ProgressBarComponent,
   ],
 })
 export default class ProductsComponent {
@@ -43,6 +45,7 @@ export default class ProductsComponent {
   sortColumn$: Observable<Sort<Product>> = this.tableFacade.sort$;
   selection$: Observable<Select> = this.tableFacade.selection$;
   pagination$: Observable<Pagination> = this.tableFacade.pagination$;
+  loading$: Observable<boolean> = this.tableFacade.loading$;
 
   constructor() {
     this.tableFacade.setInitialState(createInitialProductTableState());
