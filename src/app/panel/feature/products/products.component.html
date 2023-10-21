@@ -1,8 +1,10 @@
 <div class="mt-4 grid h-full grid-cols-[180px,1fr]">
   <div class="col-start-1 col-end-2 flex h-full flex-col space-y-2">
     <app-button (click)="changePage(2)">
-      <app-plus-icon></app-plus-icon>
-      <div>New</div>
+      <div class="flex flex-row items-center space-x-2 px-4 py-2">
+        <app-plus-icon></app-plus-icon>
+        <div>New</div>
+      </div>
     </app-button>
     <app-scrollable-area [scrollBehavior]="'onHover'">
       <app-vertical-tab-bar [tabs]="tabBarItems" [activeRoute]="'/panel/tables'"></app-vertical-tab-bar>
@@ -10,17 +12,28 @@
   </div>
   <div class="col-start-2 col-end-[-1] flex flex-col space-y-2">
     <div class="flex flex-row items-center justify-between rounded-lg border p-1 px-2">
-      <ng-container *ngIf="tableFacade.selection$ | async as selection">
-        <app-button *ngIf="selection.selectedItems.length > 0" [type]="'icon'">
-          <app-trash-icon></app-trash-icon>
-        </app-button>
-      </ng-container>
-      <app-button [type]="'icon'">
-        <app-ellipsis-icon></app-ellipsis-icon>
-      </app-button>
-      <app-pagination
-        [pagination]="(pagination$ | async) ?? { totalPages: 0, currentPage: 0}"
-        (pageChange)="tableFacade.changePage($event)"></app-pagination>
+      <div class="flex flex-row items-center space-x-2">
+        <input
+          type="checkbox"
+          [checked]="(tableFacade.selection$ | async)!.allSelected"
+          (change)="toggleSelectAll($event)" />
+        <ng-container *ngIf="tableFacade.selection$ | async as selection">
+          <app-button *ngIf="selection.selectedItems.length > 0" [type]="'icon'">
+            <app-trash-icon></app-trash-icon>
+          </app-button>
+        </ng-container>
+      </div>
+
+      <div class="flex flex-row items-center space-x-2">
+        <app-pagination
+          [pagination]="(pagination$ | async) ?? { totalPages: 0, currentPage: 0}"
+          (pageChange)="tableFacade.changePage($event)"></app-pagination>
+        <div class="border-s px-1">
+          <app-button [title]="'Table Settings'" [type]="'icon'">
+            <app-ellipsis-icon></app-ellipsis-icon>
+          </app-button>
+        </div>
+      </div>
     </div>
     <app-list
       [rows]="(products$ | async) ?? []"
@@ -28,7 +41,6 @@
       [sortColumn]="(sortColumn$ | async)"
       (sortColumnChange)="tableFacade.changeSort($event)"
       (itemSelected)="tableFacade.toggleSelect($event)"
-      (allSelected)="tableFacade.toggleSelectAll($event)"
-      [selection]="(selection$ | async)"></app-list>
+      [selectedItems]="(selection$ | async)!.selectedItems"></app-list>
   </div>
 </div>

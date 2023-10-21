@@ -9,7 +9,7 @@ import { NgClass, NgStyle } from '@angular/common';
   <div
   [ngStyle]="containerStyle"
         [ngClass]="{
-            'overflow-y-auto': scrollBehavior === 'always', 
+            'overflow-y-auto overflow-x-auto': scrollBehavior === 'always', 
             'overflow-y-hidden hover:overflow-y-auto': scrollBehavior === 'onHover'
         }">
         <ng-content></ng-content>
@@ -19,7 +19,7 @@ import { NgClass, NgStyle } from '@angular/common';
 export class ScrollableAreaComponent {
   @Input() scrollBehavior: 'always' | 'onHover' = 'always';
   @Input() height: string | null = null;
-  containerStyle: { height?: string } = {};
+  containerStyle: { height?: string; width?: string } = {};
   constructor(private elRef: ElementRef) {}
 
   ngOnInit() {
@@ -29,5 +29,7 @@ export class ScrollableAreaComponent {
     } else {
       this.containerStyle.height = this.height;
     }
+    const parentWidth = this.elRef.nativeElement.parentElement.getBoundingClientRect().width;
+    this.containerStyle.width = `${parentWidth}px`;
   }
 }

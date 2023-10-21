@@ -54,6 +54,12 @@ export default class ProductsComponent {
     this.tableFacade.changePage(page);
   }
 
+  toggleSelectAll(event: Event) {
+    const target = event.target as HTMLInputElement;
+    const isChecked = target.checked;
+    this.tableFacade.toggleSelectAll(isChecked);
+  }
+
   tabBarItems: TabBarItem[] = [
     {
       label: 'Primary',
