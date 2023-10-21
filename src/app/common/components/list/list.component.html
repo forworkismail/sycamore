@@ -22,7 +22,7 @@
         <ng-container *ngFor="let column of columns; let i = index;">
           <div
             class="flex flex-row items-center space-x-2 truncate px-2 py-2"
-            [ngClass]="column.tailwindClass ? column.tailwindClass(row) : ''"
+            [ngClass]="(selectedItems.includes(row.id) ? 'bg-tertiary ' : '') + (column.tailwindClass ? column.tailwindClass(row) : '')"
             [ngStyle]="{'width': getColumnWidthClass(column, columns.length)}">
             <input
               *ngIf="i === 0"
@@ -36,7 +36,7 @@
         </ng-container>
         <div
           [ngClass]="{'right-0': dir.value === 'ltr', 'left-0': dir.value === 'rtl'}"
-          class="absolute z-10 mt-[2px] hidden bg-app px-2 group-hover:flex">
+          class="absolute z-10 hidden border bg-app px-2 shadow group-hover:flex">
           <app-button [type]="'icon'" [title]="'Delete'">
             <app-trash-icon></app-trash-icon>
           </app-button>

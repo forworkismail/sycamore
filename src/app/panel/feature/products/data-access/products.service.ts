@@ -64,7 +64,7 @@ export class ProductService {
       result = result.slice(start, end);
     }
 
-    return of({ data: result, totalPages }).pipe(delay(3000));
+    return of({ data: result, totalPages }).pipe(delay(1000));
   }
 
   getProductById(id: number): Observable<Product | undefined> {

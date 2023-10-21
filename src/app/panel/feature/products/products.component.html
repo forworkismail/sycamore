@@ -11,46 +11,41 @@
     </app-scrollable-area>
   </div>
   <div class="col-start-2 col-end-[-1] flex flex-col">
-    <div class="flex flex-row items-center justify-between rounded-lg border p-1 px-2">
+    <app-progress-bar [loading]="tableFacade.loading()"></app-progress-bar>
+    <div class="flex flex-row items-center justify-between rounded-tl-lg rounded-tr-lg border border-b-0 p-1 px-2">
       <div class="flex flex-row items-center space-x-2">
-        <input
-          type="checkbox"
-          [checked]="(tableFacade.selection$ | async)!.allSelected"
-          (change)="toggleSelectAll($event)" />
+        <input type="checkbox" [checked]="tableFacade.selection().allSelected" (change)="toggleSelectAll($event)" />
 
-        <ng-container *ngIf="tableFacade.selection$ | async as selection">
-          <ng-container *ngIf="selection.selectedItems.length > 0">
-            <app-button [type]="'icon'">
-              <app-trash-icon></app-trash-icon>
-            </app-button>
-          </ng-container>
+        <ng-container *ngIf="tableFacade.selection().selectedItems.length > 0">
+          <app-button [type]="'icon'">
+            <app-trash-icon></app-trash-icon>
+          </app-button>
+        </ng-container>
 
-          <ng-container *ngIf="selection.selectedItems.length == 0">
-            <app-button [title]="'Refresh'" [type]="'icon'" (click)="tableFacade.loadItems()">
-              <app-refresh-icon></app-refresh-icon>
-            </app-button>
-          </ng-container>
+        <ng-container *ngIf="tableFacade.selection().selectedItems.length == 0">
+          <app-button title="Refresh" [type]="'icon'" (click)="tableFacade.loadItems(tableFacade.options())">
+            <app-refresh-icon></app-refresh-icon>
+          </app-button>
         </ng-container>
       </div>
 
       <div class="flex flex-row items-center space-x-2">
         <app-pagination
-          [pagination]="(pagination$ | async) ?? { totalPages: 0, currentPage: 0}"
+          [pagination]="tableFacade.pagination()"
           (pageChange)="tableFacade.changePage($event)"></app-pagination>
         <div class="border-s px-1">
-          <app-button [title]="'Table Settings'" [type]="'icon'">
+          <app-button title="Table Settings" [type]="'icon'">
             <app-ellipsis-icon></app-ellipsis-icon>
           </app-button>
         </div>
       </div>
     </div>
-    <app-progress-bar [loading]="(loading$ | async) ?? false"></app-progress-bar>
     <app-list
-      [rows]="(products$ | async) ?? []"
-      [columns]="(columns$ | async) ?? []"
-      [sortColumn]="(sortColumn$ | async)"
+      [rows]="tableFacade.allItems()"
+      [columns]="tableFacade.columns()"
+      [sortColumn]="(tableFacade.sort())"
       (sortColumnChange)="tableFacade.changeSort($event)"
       (itemSelected)="tableFacade.toggleSelect($event)"
-      [selectedItems]="(selection$ | async)!.selectedItems"></app-list>
+      [selectedItems]="tableFacade.selection().selectedItems"></app-list>
   </div>
 </div>

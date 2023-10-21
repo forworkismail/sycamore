@@ -28,10 +28,10 @@ export const productColumns: TableColumn<Product>[] = [
     label: 'price',
     type: 'text',
     width: 0.1,
-    mapper: (product: Product) => (product.price ? `${product.price}` : `-`),
+    mapper: (product: Product) => (product.price ? `${product.price}$` : `-`),
     sortColumnBy: 'price',
     tailwindClass: (product: Product) =>
-      product.price && product.price > 10 ? 'text-red-500 flex justify-end' : 'text-green-500 flex-row-reverse',
+      product.price && product.price > 10 ? 'text-red-500 justify-end' : 'text-green-500 justify-end',
   },
   {
     id: 3,

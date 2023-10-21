@@ -10,9 +10,7 @@ import { TrashIconComponent } from 'app/common/icons/trash-icon.component';
 import { DraftIconComponent } from 'app/common/icons/draft-icon.component';
 import { EllipsisIconComponent } from 'app/common/icons/ellipsis-icon.component';
 import { ListComponent } from 'app/common/components/list/list.component';
-import { Observable } from 'rxjs';
 import { Product, createInitialProductTableState } from './data-access/store/product.state';
-import { Pagination, Select, Sort, TableColumn } from 'app/common/store/table/table.state';
 import { TableFacade } from 'app/common/store/table/table.facade';
 import { PaginationComponent } from '../../../common/components/pagination/pagination.component';
 import { RefreshIconComponent } from '../../../common/icons/refresh-icon.component';
@@ -40,19 +38,13 @@ import { ProgressBarComponent } from '../../../common/components/progress-bar/pr
 })
 export default class ProductsComponent {
   public readonly tableFacade = inject(TableFacade<Product>);
-  products$: Observable<Product[]> = this.tableFacade.allItems$;
-  columns$: Observable<TableColumn<Product>[]> = this.tableFacade.columns$;
-  sortColumn$: Observable<Sort<Product>> = this.tableFacade.sort$;
-  selection$: Observable<Select> = this.tableFacade.selection$;
-  pagination$: Observable<Pagination> = this.tableFacade.pagination$;
-  loading$: Observable<boolean> = this.tableFacade.loading$;
 
   constructor() {
     this.tableFacade.setInitialState(createInitialProductTableState());
   }
 
   ngOnInit() {
-    this.tableFacade.loadItems();
+    this.tableFacade.loadItems(this.tableFacade.options());
   }
 
   changePage(page: number) {

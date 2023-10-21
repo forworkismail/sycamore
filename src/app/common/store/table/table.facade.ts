@@ -1,6 +1,5 @@
-import { Injectable, inject } from '@angular/core';
+import { Injectable, Signal, computed, inject } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Observable, combineLatest, map, take } from 'rxjs';
 import { tableApiActions } from 'app/common/store/table/table.actions';
 import {
   Filters,
@@ -23,38 +22,40 @@ export class TableFacade<T> {
     this.tableState = tableFeature<T>(state);
   }
 
-  allItems$: Observable<T[]> = this.store.select(this.tableState.selectAll);
-  columns$: Observable<TableColumn<T>[]> = this.store.select(this.tableState.selectColumns);
-  pagination$: Observable<Pagination> = this.store.select(this.tableState.selectPagination);
-  sort$: Observable<Sort<T>> = this.store.select(this.tableState.selectSort);
-  filters$: Observable<Filters> = this.store.select(this.tableState.selectFilters);
-  options$: Observable<GetAllOptions<T>> = combineLatest([this.pagination$, this.sort$, this.filters$]).pipe(
-    map(([pagination, sort, filters]) => ({ pagination, sort, filters: filters })),
-  );
-  selection$: Observable<Select> = this.store.select(this.tableState.selectSelection);
-  loading$: Observable<boolean> = this.store.select(this.tableState.selectLoading);
+  allItems: Signal<T[]> = this.store.selectSignal(this.tableState.selectAll);
+  columns: Signal<TableColumn<T>[]> = this.store.selectSignal(this.tableState.selectColumns);
+  pagination: Signal<Pagination> = this.store.selectSignal(this.tableState.selectPagination);
+  sort: Signal<Sort<T>> = this.store.selectSignal(this.tableState.selectSort);
+  filters: Signal<Filters> = this.store.selectSignal(this.tableState.selectFilters);
+  selection: Signal<Select> = this.store.selectSignal(this.tableState.selectSelection);
+  loading: Signal<boolean> = this.store.selectSignal(this.tableState.selectLoading);
+  options = computed<GetAllOptions<T>>(() => {
+    return {
+      pagination: this.pagination(),
+      sort: this.sort(),
+      filters: this.filters(),
+    };
+  });
 
-  loadItems() {
-    this.options$
-      .pipe(
-        take(1), // We only need the latest emitted value
-      )
-      .subscribe(options => {
-        this.store.dispatch(tableApiActions<T>().loadItems({ options }));
-      });
+  loadItems(options: GetAllOptions<T>) {
+    this.store.dispatch(
+      tableApiActions<T>().loadItems({
+        options,
+      }),
+    );
   }
 
   changePage(page: number): void {
     this.store.dispatch(tableApiActions().changePage({ page }));
     this.toggleSelectAll(false);
-    this.loadItems();
+    this.loadItems(this.options());
   }
 
   changeSort(sort: Sort<T>): void {
     this.store.dispatch(tableApiActions<T>().changeSort({ sort }));
     this.toggleSelectAll(false);
     this.changePage(1);
-    this.loadItems();
+    this.loadItems(this.options());
   }
 
   toggleSelect(id: number) {
