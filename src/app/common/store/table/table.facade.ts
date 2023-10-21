@@ -51,6 +51,7 @@ export class TableFacade<T> {
 
   changeSort(sort: Sort<T>): void {
     this.store.dispatch(tableApiActions<T>().changeSort({ sort }));
+    this.changePage(1);
     this.loadItems();
   }
 

@@ -24,18 +24,30 @@ export const productColumns: TableColumn<Product>[] = [
     sortColumnBy: 'name',
   },
   {
-    id: 3,
+    id: 2,
     label: 'price',
     type: 'text',
-    mapper: (product: Product) => `${product.price} $`,
+    width: 0.1,
+    mapper: (product: Product) => (product.price ? `${product.price}` : `-`),
     sortColumnBy: 'price',
+    tailwindClass: (product: Product) =>
+      product.price && product.price > 10 ? 'text-red-500 flex justify-end' : 'text-green-500 flex-row-reverse',
+  },
+  {
+    id: 3,
+    label: 'category',
+    type: 'text',
+    width: 0.3,
+    mapper: (product: Product) => `${product.category}`,
+    sortColumnBy: 'category',
   },
   {
     id: 4,
-    label: 'category',
+    label: 'description',
     type: 'text',
-    mapper: (product: Product) => `${product.category}`,
-    sortColumnBy: 'category',
+    width: 0.3,
+    mapper: (product: Product) => `${product.description}`,
+    sortColumnBy: 'description',
   },
 ];
 

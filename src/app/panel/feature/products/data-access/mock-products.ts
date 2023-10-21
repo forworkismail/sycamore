@@ -19,14 +19,14 @@ export const MOCK_PRODUCTS: Product[] = [
     id: 3,
     name: 'Apples',
     description: 'Fresh red apples.',
-    price: 5,
+    price: 0,
     category: 'FOOD',
   },
   {
     id: 4,
     name: 'Desk Chair',
     description: 'Ergonomic office chair.',
-    price: 150,
+    price: 0,
     category: 'FURNITURE',
   },
   {

@@ -1,5 +1,6 @@
 <div class="flex flex-row items-center">
   <app-button
+    [title]="'Previous'"
     (click)="decrementPage()"
     [ngStyle]="{ 'visibility': pagination.currentPage > 1 ? 'visible' : 'hidden' }"
     [type]="'icon'">
@@ -7,6 +8,7 @@
   </app-button>
   <div>{{pagination.currentPage}}/{{pagination.totalPages}}</div>
   <app-button
+    [title]="'Next'"
     (click)="incrementPage()"
     [ngStyle]="{ 'visibility': pagination.currentPage !== pagination.totalPages ? 'visible' : 'hidden' }"
     [type]="'icon'">

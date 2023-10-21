@@ -35,10 +35,7 @@ import { PaginationComponent } from '../pagination/pagination.component';
 export class ListComponent<T extends { id: number }> {
   @Input() columns: TableColumn<T>[] = [];
   @Input() rows: T[] = [];
-  @Input() selection: Select | null = {
-    selectedItems: [],
-    allSelected: false,
-  };
+  @Input() selectedItems: number[] = [];
 
   @Input() sortColumn: Sort<T> | null = {
     column: {} as keyof T,
@@ -47,7 +44,6 @@ export class ListComponent<T extends { id: number }> {
 
   @Output() sortColumnChange = new EventEmitter<Sort<T>>();
   @Output() itemSelected = new EventEmitter<number>();
-  @Output() allSelected = new EventEmitter<boolean>();
 
   constructor(public dir: Directionality) {}
 
@@ -69,11 +65,6 @@ export class ListComponent<T extends { id: number }> {
         direction: 'asc',
       });
     }
-  }
-
-  onSelectAll(event: Event) {
-    const isChecked = (event.target as HTMLInputElement).checked;
-    this.allSelected.emit(isChecked);
   }
 
   onSelectItem(id: number) {

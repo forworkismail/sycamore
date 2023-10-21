@@ -13,10 +13,11 @@ export interface TableState<T> extends EntityState<T> {
 export interface TableColumn<T> {
   id: number;
   label: string;
-  width?: number;
+  width: number;
   type: 'text';
   mapper: (entity: T) => string;
   sortColumnBy: keyof T;
+  tailwindClass?: (entity: T) => string;
 }
 
 export interface Sort<T> {

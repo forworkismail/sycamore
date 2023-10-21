@@ -1,5 +1,5 @@
 import { Injectable, inject } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable, delay, of } from 'rxjs';
 import { Product } from './store/product.state';
 import { MOCK_PRODUCTS } from './mock-products';
 import { GetAllOptions, PaginatedResult, TableService } from 'app/common/store/table/table.service';
@@ -64,7 +64,7 @@ export class ProductService {
       result = result.slice(start, end);
     }
 
-    return of({ data: result, totalPages });
+    return of({ data: result, totalPages }).pipe(delay(3000));
   }
 
   getProductById(id: number): Observable<Product | undefined> {
