@@ -34,7 +34,6 @@ export class TableFacade<T> {
   selection$: Observable<Select> = this.store.select(this.tableState.selectSelection);
 
   loadItems() {
-    this.toggleSelectAll(false);
     this.options$
       .pipe(
         take(1), // We only need the latest emitted value
@@ -46,11 +45,13 @@ export class TableFacade<T> {
 
   changePage(page: number): void {
     this.store.dispatch(tableApiActions().changePage({ page }));
+    this.toggleSelectAll(false);
     this.loadItems();
   }
 
   changeSort(sort: Sort<T>): void {
     this.store.dispatch(tableApiActions<T>().changeSort({ sort }));
+    this.toggleSelectAll(false);
     this.changePage(1);
     this.loadItems();
   }

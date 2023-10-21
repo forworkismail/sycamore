@@ -50,9 +50,12 @@ export function tableFeature<T>(initialState: TableState<T>) {
         const isItemSelected = state.selection.selectedItems.includes(id);
         return {
           ...state,
-          selectedItems: isItemSelected
-            ? state.selection.selectedItems.filter(i => i !== id)
-            : [...state.selection.selectedItems, id],
+          selection: {
+            ...state.selection,
+            selectedItems: isItemSelected
+              ? state.selection.selectedItems.filter(i => i !== id)
+              : [...state.selection.selectedItems, id],
+          },
         };
       }),
       on(tableApiActions<T>().selectAllItems, (state, { selected }) => {
