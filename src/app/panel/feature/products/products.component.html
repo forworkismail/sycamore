@@ -17,10 +17,19 @@
           type="checkbox"
           [checked]="(tableFacade.selection$ | async)!.allSelected"
           (change)="toggleSelectAll($event)" />
+
         <ng-container *ngIf="tableFacade.selection$ | async as selection">
-          <app-button *ngIf="selection.selectedItems.length > 0" [type]="'icon'">
-            <app-trash-icon></app-trash-icon>
-          </app-button>
+          <ng-container *ngIf="selection.selectedItems.length > 0">
+            <app-button [type]="'icon'">
+              <app-trash-icon></app-trash-icon>
+            </app-button>
+          </ng-container>
+
+          <ng-container *ngIf="selection.selectedItems.length == 0">
+            <app-button [title]="'Refresh'" [type]="'icon'" (click)="tableFacade.loadItems()">
+              <app-refresh-icon></app-refresh-icon>
+            </app-button>
+          </ng-container>
         </ng-container>
       </div>
 

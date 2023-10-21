@@ -15,6 +15,7 @@ import { Product, createInitialProductTableState } from './data-access/store/pro
 import { Pagination, Select, Sort, TableColumn } from 'app/common/store/table/table.state';
 import { TableFacade } from 'app/common/store/table/table.facade';
 import { PaginationComponent } from '../../../common/components/pagination/pagination.component';
+import { RefreshIconComponent } from '../../../common/icons/refresh-icon.component';
 
 @Component({
   selector: 'app-products',
@@ -32,6 +33,7 @@ import { PaginationComponent } from '../../../common/components/pagination/pagin
     ListComponent,
     AsyncPipe,
     PaginationComponent,
+    RefreshIconComponent,
   ],
 })
 export default class ProductsComponent {
