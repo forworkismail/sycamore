@@ -5,6 +5,7 @@ import { tableApiActions } from 'app/common/store/table/table.actions';
 import {
   Filters,
   Pagination,
+  Select,
   Sort,
   TableColumn,
   TableState,
@@ -30,7 +31,7 @@ export class TableFacade<T> {
   options$: Observable<GetAllOptions<T>> = combineLatest([this.pagination$, this.sort$, this.filters$]).pipe(
     map(([pagination, sort, filters]) => ({ pagination, sort, filters: filters })),
   );
-  selectedItems$: Observable<number[]> = this.store.select(this.tableState.selectSelectedItems);
+  selection$: Observable<Select> = this.store.select(this.tableState.selectSelection);
 
   loadItems() {
     this.toggleSelectAll(false);

@@ -6,9 +6,10 @@ import { TrashIconComponent } from 'app/common/icons/trash-icon.component';
 import { EllipsisIconComponent } from 'app/common/icons/ellipsis-icon.component';
 import { Directionality } from '@angular/cdk/bidi';
 import { EyeIconComponent } from '../../icons/eye-icon.component';
-import { Sort, TableColumn } from 'app/common/store/table/table.state';
+import { Select, Sort, TableColumn } from 'app/common/store/table/table.state';
 import { DownArrowIconComponent } from 'app/common/icons/downarrow-icon.component';
 import { UpArrowIconComponent } from '../../icons/uparrow-icon.component';
+import { PaginationComponent } from '../pagination/pagination.component';
 
 @Component({
   selector: 'app-list',
@@ -28,12 +29,16 @@ import { UpArrowIconComponent } from '../../icons/uparrow-icon.component';
     NgIf,
     DownArrowIconComponent,
     UpArrowIconComponent,
+    PaginationComponent,
   ],
 })
 export class ListComponent<T extends { id: number }> {
   @Input() columns: TableColumn<T>[] = [];
   @Input() rows: T[] = [];
-  @Input() selectedItems: number[] = [];
+  @Input() selection: Select | null = {
+    selectedItems: [],
+    allSelected: false,
+  };
 
   @Input() sortColumn: Sort<T> | null = {
     column: {} as keyof T,
@@ -43,8 +48,6 @@ export class ListComponent<T extends { id: number }> {
   @Output() sortColumnChange = new EventEmitter<Sort<T>>();
   @Output() itemSelected = new EventEmitter<number>();
   @Output() allSelected = new EventEmitter<boolean>();
-
-  selectAll: boolean = false;
 
   constructor(public dir: Directionality) {}
 

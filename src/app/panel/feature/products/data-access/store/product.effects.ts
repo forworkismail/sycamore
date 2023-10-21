@@ -16,7 +16,7 @@ export class ProductEffects {
         ofType(loadItems),
         mergeMap(props =>
           productService.getAllProducts(props.options).pipe(
-            map(products => loadItemsSuccess({ data: products })),
+            map(result => loadItemsSuccess({ data: result.data, totalPages: result.totalPages })),
             catchError(error => of(loadItemsFailure({ error: error.message }))),
           ),
         ),

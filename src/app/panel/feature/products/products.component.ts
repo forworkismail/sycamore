@@ -12,8 +12,9 @@ import { EllipsisIconComponent } from 'app/common/icons/ellipsis-icon.component'
 import { ListComponent } from 'app/common/components/list/list.component';
 import { Observable } from 'rxjs';
 import { Product, createInitialProductTableState } from './data-access/store/product.state';
-import { Sort, TableColumn } from 'app/common/store/table/table.state';
+import { Pagination, Select, Sort, TableColumn } from 'app/common/store/table/table.state';
 import { TableFacade } from 'app/common/store/table/table.facade';
+import { PaginationComponent } from '../../../common/components/pagination/pagination.component';
 
 @Component({
   selector: 'app-products',
@@ -30,6 +31,7 @@ import { TableFacade } from 'app/common/store/table/table.facade';
     EllipsisIconComponent,
     ListComponent,
     AsyncPipe,
+    PaginationComponent,
   ],
 })
 export default class ProductsComponent {
@@ -37,7 +39,8 @@ export default class ProductsComponent {
   products$: Observable<Product[]> = this.tableFacade.allItems$;
   columns$: Observable<TableColumn<Product>[]> = this.tableFacade.columns$;
   sortColumn$: Observable<Sort<Product>> = this.tableFacade.sort$;
-  selectedItems$: Observable<number[]> = this.tableFacade.selectedItems$;
+  selection$: Observable<Select> = this.tableFacade.selection$;
+  pagination$: Observable<Pagination> = this.tableFacade.pagination$;
 
   constructor() {
     this.tableFacade.setInitialState(createInitialProductTableState());

@@ -1,5 +1,4 @@
 import { createReducer, on, createFeature, MemoizedSelector, createSelector, select } from '@ngrx/store';
-// import { initialState, tableAdapter } from './product.state';
 import { tableApiActions } from 'app/common/store/table/table.actions';
 import { TableState, createTableAdapter } from 'app/common/store/table/table.state';
 
@@ -15,8 +14,12 @@ export function tableFeature<T>(initialState: TableState<T>) {
           error: null,
         };
       }),
-      on(tableApiActions<T>().loadItemsSuccess, (state, { data }) => {
-        return createTableAdapter<T>().setAll(data, { ...state, loading: false });
+      on(tableApiActions<T>().loadItemsSuccess, (state, { data, totalPages }) => {
+        return createTableAdapter<T>().setAll(data, {
+          ...state,
+          loading: false,
+          pagination: { ...state.pagination, totalPages },
+        });
       }),
       on(tableApiActions<T>().loadItemsFailure, (state, { error }) => {
         return {
@@ -44,16 +47,21 @@ export function tableFeature<T>(initialState: TableState<T>) {
         };
       }),
       on(tableApiActions<T>().selectItem, (state, { id }) => {
-        const isItemSelected = state.selectedItems.includes(id);
+        const isItemSelected = state.selection.selectedItems.includes(id);
         return {
           ...state,
-          selectedItems: isItemSelected ? state.selectedItems.filter(i => i !== id) : [...state.selectedItems, id],
+          selectedItems: isItemSelected
+            ? state.selection.selectedItems.filter(i => i !== id)
+            : [...state.selection.selectedItems, id],
         };
       }),
       on(tableApiActions<T>().selectAllItems, (state, { selected }) => {
         return {
           ...state,
-          selectedItems: selected ? [...(state.ids as number[])] : [],
+          selection: {
+            selectedItems: selected ? [...(state.ids as number[])] : [],
+            allSelected: selected ? true : false,
+          },
         };
       }),
     ),

@@ -9,15 +9,18 @@
     </app-scrollable-area>
   </div>
   <div class="col-start-2 col-end-[-1] flex flex-col space-y-2">
-    <div class="flex flex-row items-start rounded-lg border p-1">
-      <ng-container *ngIf="tableFacade.selectedItems$ | async as selectedItems">
-        <app-button *ngIf="selectedItems.length > 0" [type]="'icon'">
+    <div class="flex flex-row items-center justify-between rounded-lg border p-1 px-2">
+      <ng-container *ngIf="tableFacade.selection$ | async as selection">
+        <app-button *ngIf="selection.selectedItems.length > 0" [type]="'icon'">
           <app-trash-icon></app-trash-icon>
         </app-button>
       </ng-container>
       <app-button [type]="'icon'">
         <app-ellipsis-icon></app-ellipsis-icon>
       </app-button>
+      <app-pagination
+        [pagination]="(pagination$ | async) ?? { totalPages: 0, currentPage: 0}"
+        (pageChange)="tableFacade.changePage($event)"></app-pagination>
     </div>
     <app-list
       [rows]="(products$ | async) ?? []"
@@ -26,6 +29,6 @@
       (sortColumnChange)="tableFacade.changeSort($event)"
       (itemSelected)="tableFacade.toggleSelect($event)"
       (allSelected)="tableFacade.toggleSelectAll($event)"
-      [selectedItems]="(selectedItems$ | async) ?? []"></app-list>
+      [selection]="(selection$ | async)"></app-list>
   </div>
 </div>

@@ -8,15 +8,15 @@ export interface ButtonItem {
 export const BUTTON_TYPES: Record<ButtonType, ButtonItem> = {
   primary: {
     type: 'primary',
-    class: 'bg-primary border-primary border px-4 py-2 shadow rounded-lg text-white hover:bg-opacity-90',
+    class: 'bg-primary border-primary border shadow rounded-lg text-white hover:bg-opacity-90',
   },
   secondary: {
     type: 'secondary',
-    class: 'border-gray-300 border shadow p-2 rounded-lg hover:bg-gray-50',
+    class: 'border-gray-300 border shadow rounded-lg hover:bg-gray-50',
   },
   danger: {
     type: 'danger',
-    class: 'bg-danger border-danger border text-white shadow p-2 rounded-lg hover:bg-opacity-90',
+    class: 'bg-danger border-danger border text-white shadow rounded-lg hover:bg-opacity-90',
   },
   link: {
     type: 'link',

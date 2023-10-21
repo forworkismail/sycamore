@@ -25,7 +25,7 @@ export class ScrollableAreaComponent {
   ngOnInit() {
     if (!this.height) {
       const positionFromTop = this.elRef.nativeElement.getBoundingClientRect().top;
-      this.containerStyle.height = `calc(100vh - ${positionFromTop}px - 20px)`;
+      this.containerStyle.height = `calc(100vh - ${positionFromTop}px - 10px)`;
     } else {
       this.containerStyle.height = this.height;
     }

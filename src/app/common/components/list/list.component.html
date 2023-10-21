@@ -1,12 +1,12 @@
 <app-scrollable-area>
-  <div class="sticky top-0 z-50 flex flex-row border bg-app font-bold">
-    <div class="flex items-center p-2">
-      <input type="checkbox" [checked]="selectAll" (change)="onSelectAll($event)" />
+  <div class="sticky top-0 z-50 flex flex-row border bg-app font-bold shadow">
+    <div class="flex items-center px-2 py-1">
+      <input type="checkbox" [checked]="selection?.allSelected" (change)="onSelectAll($event)" />
     </div>
     <ng-container *ngFor="let column  of columns">
       <div
         (click)="changeSort(column)"
-        class="flex cursor-pointer flex-row items-center space-x-1 truncate p-2 hover:bg-secondary"
+        class="flex cursor-pointer flex-row items-center space-x-1 truncate px-2 py-1 hover:bg-secondary"
         [ngStyle]="{'width': getColumnWidthClass(column, columns.length)}">
         <div>
           {{ column.label | titlecase }}
@@ -22,12 +22,15 @@
     <ng-container *ngFor="let row of rows">
       <div
         class="hover:shadow-hover group relative flex flex-row border-b transition-shadow hover:cursor-pointer hover:shadow">
-        <div class="flex items-center p-2 py-4">
-          <input type="checkbox" [checked]="selectedItems.includes(row.id)" (change)="onSelectItem(row.id)" />
+        <div class="flex items-center px-2 py-4">
+          <input
+            type="checkbox"
+            [checked]="selection?.selectedItems?.includes(row.id)"
+            (change)="onSelectItem(row.id)" />
         </div>
 
         <ng-container *ngFor="let column of columns">
-          <div class="truncate p-2 py-4" [ngStyle]="{'width': getColumnWidthClass(column, columns.length)}">
+          <div class="truncate px-2 py-4" [ngStyle]="{'width': getColumnWidthClass(column, columns.length)}">
             {{ column.mapper(row) }}
           </div>
         </ng-container>

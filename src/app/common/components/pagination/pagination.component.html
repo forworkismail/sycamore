@@ -1,0 +1,15 @@
+<div class="flex flex-row items-center">
+  <app-button
+    (click)="decrementPage()"
+    [ngStyle]="{ 'visibility': pagination.currentPage > 1 ? 'visible' : 'hidden' }"
+    [type]="'icon'">
+    <app-chevron-icon [direction]="'left'"></app-chevron-icon>
+  </app-button>
+  <div>{{pagination.currentPage}}/{{pagination.totalPages}}</div>
+  <app-button
+    (click)="incrementPage()"
+    [ngStyle]="{ 'visibility': pagination.currentPage !== pagination.totalPages ? 'visible' : 'hidden' }"
+    [type]="'icon'">
+    <app-chevron-icon [direction]="'right'"></app-chevron-icon>
+  </app-button>
+</div>

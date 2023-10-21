@@ -9,9 +9,14 @@ export interface GetAllOptions<T> {
   pagination: Pagination;
 }
 
+export interface PaginatedResult<T> {
+  data: T[];
+  totalPages: number;
+}
+
 export interface TableServiceInterface<T> {
   getById(id: string): Observable<T | undefined>;
-  getAll(options: GetAllOptions<T>): Observable<T[]>;
+  getAll(options: GetAllOptions<T>): Observable<PaginatedResult<T>>;
   add(item: T): Observable<T>;
   setBaseUrl(url: string): void;
   update(item: T): Observable<T>;
@@ -35,8 +40,8 @@ export class TableService<T> implements TableServiceInterface<T> {
     return this.http.get<T | undefined>(`${this.baseUrl}/${id}`);
   }
 
-  getAll(options: GetAllOptions<T>): Observable<T[]> {
-    return this.http.get<T[]>(this.baseUrl, { params: this.createHttpParams(options) });
+  getAll(options: GetAllOptions<T>): Observable<PaginatedResult<T>> {
+    return this.http.get<PaginatedResult<T>>(this.baseUrl, { params: this.createHttpParams(options) });
   }
 
   add(item: T): Observable<T> {

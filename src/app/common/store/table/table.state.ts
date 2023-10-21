@@ -5,9 +5,9 @@ export interface TableState<T> extends EntityState<T> {
   sort: Sort<T>;
   pagination: Pagination;
   filters: Filters;
+  selection: Select;
   loading: boolean;
   error: string | null;
-  selectedItems: number[];
 }
 
 export interface TableColumn<T> {
@@ -27,10 +27,16 @@ export interface Sort<T> {
 export interface Pagination {
   currentPage: number;
   pageSize: number;
+  totalPages: number;
 }
 
 export interface Filters {
   [key: string]: any;
+}
+
+export interface Select {
+  allSelected: boolean;
+  selectedItems: number[];
 }
 
 export function createTableAdapter<T>(): EntityAdapter<T> {
@@ -48,14 +54,18 @@ export function createInitialTableState<T>(): TableState<T> {
       pagination: {
         currentPage: 1,
         pageSize: 20,
+        totalPages: 0,
       },
       filters: {
         searchTerm: '',
         category: '',
       },
+      selection: {
+        selectedItems: [],
+        allSelected: false,
+      },
       loading: false,
       error: null,
-      selectedItems: [],
     }),
   };
 }
