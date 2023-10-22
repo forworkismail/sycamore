@@ -2,13 +2,29 @@ import { Component, ElementRef, Input, TemplateRef, ViewChild, ViewContainerRef 
 import { TemplatePortal } from '@angular/cdk/portal';
 import { Overlay, OverlayRef, OverlayConfig } from '@angular/cdk/overlay';
 import { CommonModule } from '@angular/common';
-import { trigger, state, style, transition, animate } from '@angular/animations';
+import { trigger, state, style, transition, animate, keyframes } from '@angular/animations';
 
 const overlayAnimation = trigger('overlayAnimation', [
-  state('in', style({ opacity: 1 })),
-  transition('void => in', [style({ opacity: 0 }), animate('300ms ease-in-out')]),
-  state('out', style({ opacity: 0 })),
-  transition('in => out', [animate('300ms ease-in-out')]),
+  state('in', style({ opacity: 1, transform: 'scale(1)' })),
+  transition('void => in', [
+    animate(
+      '200ms ease-in-out',
+      keyframes([
+        style({ opacity: 0, transform: 'scale(0.7)', offset: 0 }),
+        style({ opacity: 1, transform: 'scale(1.05)', offset: 0.8 }),
+        style({ opacity: 1, transform: 'scale(1)', offset: 1 }),
+      ]),
+    ),
+  ]),
+  transition('in => void', [
+    animate(
+      '200ms ease-in-out',
+      keyframes([
+        style({ opacity: 1, transform: 'scale(1)', offset: 0 }),
+        style({ opacity: 0, transform: 'scale(0.7)', offset: 1 }),
+      ]),
+    ),
+  ]),
 ]);
 
 @Component({
@@ -30,7 +46,7 @@ const overlayAnimation = trigger('overlayAnimation', [
   animations: [overlayAnimation], // Add the animation trigger
 })
 export class OverlayComponent {
-  animationState: 'in' | 'out' = 'in';
+  animationState: 'in' | 'void' = 'in';
   @ViewChild('trigger') trigger!: ElementRef;
   @ViewChild(TemplateRef) contentTemplate!: TemplateRef<any>;
   private overlayRef: OverlayRef | null = null;
@@ -73,9 +89,11 @@ export class OverlayComponent {
 
   close() {
     if (this.overlayRef) {
-      this.animationState = 'out';
-      this.overlayRef.detach();
-      this.overlayRef = null;
+      this.animationState = 'void';
+      setTimeout(() => {
+        this.overlayRef?.detach();
+        this.overlayRef = null;
+      }, 200);
     }
   }
 
