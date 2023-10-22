@@ -1,7 +1,6 @@
 import { Component, ElementRef, Input, TemplateRef, ViewChild, ViewContainerRef } from '@angular/core';
 import { TemplatePortal } from '@angular/cdk/portal';
 import { Overlay, OverlayRef, OverlayConfig } from '@angular/cdk/overlay';
-import { CommonModule } from '@angular/common';
 import { trigger, state, style, transition, animate, keyframes } from '@angular/animations';
 
 const overlayAnimation = trigger('overlayAnimation', [
@@ -28,7 +27,7 @@ const overlayAnimation = trigger('overlayAnimation', [
 ]);
 
 @Component({
-  selector: 'app-overlay',
+  selector: 'app-dropdown',
   standalone: true,
   template: `
     <div #trigger (click)="toggle()">
@@ -42,10 +41,9 @@ const overlayAnimation = trigger('overlayAnimation', [
       </div>
     </ng-template>
   `,
-  imports: [CommonModule],
-  animations: [overlayAnimation], // Add the animation trigger
+  animations: [overlayAnimation],
 })
-export class OverlayComponent {
+export class DropdownComponent {
   animationState: 'in' | 'void' = 'in';
   @ViewChild('trigger') trigger!: ElementRef;
   @ViewChild(TemplateRef) contentTemplate!: TemplateRef<any>;
@@ -56,7 +54,6 @@ export class OverlayComponent {
     if (this.overlayRef && this.overlayRef.hasAttached()) {
       this.close();
     } else {
-      console.log('open');
       this.openOverlay();
     }
   }

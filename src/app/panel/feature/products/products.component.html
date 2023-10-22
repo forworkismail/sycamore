@@ -34,7 +34,7 @@
           [pagination]="tableFacade.pagination()"
           (pageChange)="tableFacade.changePage($event)"></app-pagination>
         <div class="border-s px-1">
-          <app-overlay #myOverlay>
+          <app-dropdown #myOverlay>
             <app-button dropdown-trigger title="Table Settings" [type]="'icon'">
               <app-ellipsis-icon></app-ellipsis-icon>
             </app-button>
@@ -52,7 +52,7 @@
 
               <!-- <app-table-settings [columns]="tableFacade.columns()" (columnsChange)="tableFacade.changeColumns($event)"></app-table-settings> -->
             </div>
-          </app-overlay>
+          </app-dropdown>
         </div>
       </div>
     </div>
