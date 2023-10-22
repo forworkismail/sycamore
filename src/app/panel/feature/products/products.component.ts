@@ -4,7 +4,7 @@ import { ButtonComponent } from 'app/common/components/button/button.component';
 import { PlusIconComponent } from 'app/common/icons/plus-icon.component';
 import { TabBarItem } from 'app/common/components/tab-bar/tab-bar.config';
 import { ColorsIconComponent } from 'app/common/icons/colors-icon.component';
-import { AsyncPipe, NgFor, NgIf } from '@angular/common';
+import { AsyncPipe, NgClass, NgFor, NgIf } from '@angular/common';
 import { VerticalTabBarComponent } from 'app/common/components/tab-bar/vertical-tab-bar.component';
 import { TrashIconComponent } from 'app/common/icons/trash-icon.component';
 import { DraftIconComponent } from 'app/common/icons/draft-icon.component';
@@ -24,6 +24,7 @@ import { DropdownComponent } from 'app/common/components/dropdown/dropdown.compo
   imports: [
     NgFor,
     NgIf,
+    NgClass,
     ScrollableAreaComponent,
     ButtonComponent,
     PlusIconComponent,

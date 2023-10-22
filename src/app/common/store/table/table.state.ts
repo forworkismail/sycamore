@@ -25,9 +25,11 @@ export interface Sort<T> {
   direction: 'asc' | 'desc';
 }
 
+export type PageSize = 10 | 20 | 50;
+
 export interface Pagination {
   currentPage: number;
-  pageSize: number;
+  pageSize: PageSize;
   totalPages: number;
 }
 

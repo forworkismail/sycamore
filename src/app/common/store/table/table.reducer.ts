@@ -28,12 +28,21 @@ export function tableFeature<T>(initialState: TableState<T>) {
           error,
         };
       }),
-      on(tableApiActions<T>().changePage, (state, { page }) => {
+      on(tableApiActions<T>().changePage, (state, { currentPage }) => {
         return {
           ...state,
           pagination: {
             ...state.pagination,
-            currentPage: page,
+            currentPage,
+          },
+        };
+      }),
+      on(tableApiActions<T>().changePageSize, (state, { pageSize }) => {
+        return {
+          ...state,
+          pagination: {
+            ...state.pagination,
+            pageSize,
           },
         };
       }),

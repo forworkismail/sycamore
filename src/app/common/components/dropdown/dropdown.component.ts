@@ -36,11 +36,9 @@ const overlayAnimation = trigger('overlayAnimation', [
         <ng-content select="[dropdown-trigger]"></ng-content>
     </div>
   <ng-template>
-    <div  [@overlayAnimation]="animationState" [ngStyle]="{'width': this.width }" class="dropdown-content border truncate bg-app p-1 shadow">
+    <div  [@overlayAnimation]="animationState" [ngStyle]="{'width': this.width }" class="dropdown-content border truncate bg-app shadow">
         <app-scrollable-area [height]="height">
-        <div class="dropdown-content-body p-2">
           <ng-content select="[dropdown-content]"></ng-content>
-        </div>
       </app-scrollable-area>
       </div>
 

@@ -3,6 +3,7 @@ import { Store } from '@ngrx/store';
 import { tableApiActions } from 'app/common/store/table/table.actions';
 import {
   Filters,
+  PageSize,
   Pagination,
   Select,
   Sort,
@@ -46,8 +47,15 @@ export class TableFacade<T> {
   }
 
   changePage(page: number): void {
-    this.store.dispatch(tableApiActions().changePage({ page }));
+    this.store.dispatch(tableApiActions().changePage({ currentPage: page }));
     this.toggleSelectAll(false);
+    this.loadItems(this.options());
+  }
+
+  changePageSize(pageSize: PageSize): void {
+    this.store.dispatch(tableApiActions().changePageSize({ pageSize }));
+    this.toggleSelectAll(false);
+    this.changePage(1);
     this.loadItems(this.options());
   }
 
