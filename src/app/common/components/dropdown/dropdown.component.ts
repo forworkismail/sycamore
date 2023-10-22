@@ -2,6 +2,8 @@ import { Component, ElementRef, Input, TemplateRef, ViewChild, ViewContainerRef 
 import { TemplatePortal } from '@angular/cdk/portal';
 import { Overlay, OverlayRef, OverlayConfig } from '@angular/cdk/overlay';
 import { trigger, state, style, transition, animate, keyframes } from '@angular/animations';
+import { NgStyle } from '@angular/common';
+import { ScrollableAreaComponent } from '../base/scrollable-area/scrollable-area.component';
 
 const overlayAnimation = trigger('overlayAnimation', [
   state('in', style({ opacity: 1, transform: 'scale(1)' })),
@@ -17,7 +19,7 @@ const overlayAnimation = trigger('overlayAnimation', [
   ]),
   transition('in => void', [
     animate(
-      '200ms ease-in-out',
+      '100ms ease-in',
       keyframes([
         style({ opacity: 1, transform: 'scale(1)', offset: 0 }),
         style({ opacity: 0, transform: 'scale(0.7)', offset: 1 }),
@@ -34,16 +36,23 @@ const overlayAnimation = trigger('overlayAnimation', [
         <ng-content select="[dropdown-trigger]"></ng-content>
     </div>
   <ng-template>
-      <div         [@overlayAnimation]="animationState" class="dropdown-content truncate rounded-lg border-2 border-primary bg-app p-1 shadow">
+    <div  [@overlayAnimation]="animationState" [ngStyle]="{'width': this.width }" class="dropdown-content border truncate bg-app p-1 shadow">
+        <app-scrollable-area [height]="height">
         <div class="dropdown-content-body p-2">
           <ng-content select="[dropdown-content]"></ng-content>
         </div>
+      </app-scrollable-area>
       </div>
+
     </ng-template>
   `,
   animations: [overlayAnimation],
+  imports: [NgStyle, ScrollableAreaComponent],
 })
 export class DropdownComponent {
+  @Input() width = 'auto';
+  @Input() height = 'auto';
+
   animationState: 'in' | 'void' = 'in';
   @ViewChild('trigger') trigger!: ElementRef;
   @ViewChild(TemplateRef) contentTemplate!: TemplateRef<any>;
@@ -51,6 +60,7 @@ export class DropdownComponent {
 
   constructor(private overlay: Overlay, private viewContainerRef: ViewContainerRef) {}
   toggle() {
+    event?.stopPropagation();
     if (this.overlayRef && this.overlayRef.hasAttached()) {
       this.close();
     } else {
@@ -73,7 +83,8 @@ export class DropdownComponent {
           overlayX: 'start',
           overlayY: 'top',
         },
-      ]);
+      ])
+      .withViewportMargin(10);
 
     const config = new OverlayConfig({
       positionStrategy: positionStrategy,
@@ -90,7 +101,7 @@ export class DropdownComponent {
       setTimeout(() => {
         this.overlayRef?.detach();
         this.overlayRef = null;
-      }, 200);
+      }, 100);
     }
   }
 
