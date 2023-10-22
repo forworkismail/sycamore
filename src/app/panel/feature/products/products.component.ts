@@ -15,6 +15,7 @@ import { TableFacade } from 'app/common/store/table/table.facade';
 import { PaginationComponent } from '../../../common/components/pagination/pagination.component';
 import { RefreshIconComponent } from '../../../common/icons/refresh-icon.component';
 import { ProgressBarComponent } from '../../../common/components/progress-bar/progress-bar.component';
+import { OverlayComponent } from 'app/common/components/base/overlay/overlay.component';
 
 @Component({
   selector: 'app-products',
@@ -34,6 +35,7 @@ import { ProgressBarComponent } from '../../../common/components/progress-bar/pr
     PaginationComponent,
     RefreshIconComponent,
     ProgressBarComponent,
+    OverlayComponent,
   ],
 })
 export default class ProductsComponent {

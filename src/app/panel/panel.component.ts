@@ -6,13 +6,12 @@ import { SidebarIconComponent } from '../common/icons/sidebar-icon.component';
 import { DrawerComponent } from '../common/components/drawer/drawer.component';
 import { SidebarComponent } from './ui/sidebar/sidebar.component';
 import { CompanyIconComponent } from '../common/icons/company-icon.component';
-import { CommonModule, TitleCasePipe } from '@angular/common';
+import { TitleCasePipe } from '@angular/common';
 import { TrashIconComponent } from '../common/icons/trash-icon.component';
 import { SearchIconComponent } from '../common/icons/search-icon.component';
 import { ConfigurationIconComponent } from '../common/icons/configuration-icon.component';
 import { ButtonComponent } from '../common/components/button/button.component';
 import { ListComponent } from '../common/components/list/list.component';
-import { OverlayService } from 'app/common/components/base/overlay/overlay.service';
 import { SearchComponent } from '../common/components/search/search.component';
 
 @Component({

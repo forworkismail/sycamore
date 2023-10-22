@@ -34,9 +34,25 @@
           [pagination]="tableFacade.pagination()"
           (pageChange)="tableFacade.changePage($event)"></app-pagination>
         <div class="border-s px-1">
-          <app-button title="Table Settings" [type]="'icon'">
-            <app-ellipsis-icon></app-ellipsis-icon>
-          </app-button>
+          <app-overlay #myOverlay>
+            <app-button dropdown-trigger title="Table Settings" [type]="'icon'">
+              <app-ellipsis-icon></app-ellipsis-icon>
+            </app-button>
+            <div dropdown-content>
+              <h1>ABC</h1>
+              <h1>ABC</h1>
+
+              <h1>ABC</h1>
+              <h1>ABC</h1>
+              <h1>ABC</h1>
+              <h1>ABC</h1>
+              <h1>ABC</h1>
+              <h1>ABC</h1>
+              <h1>ABC</h1>
+
+              <!-- <app-table-settings [columns]="tableFacade.columns()" (columnsChange)="tableFacade.changeColumns($event)"></app-table-settings> -->
+            </div>
+          </app-overlay>
         </div>
       </div>
     </div>
