@@ -4,6 +4,8 @@ import { Overlay, OverlayRef, OverlayConfig } from '@angular/cdk/overlay';
 import { trigger, state, style, transition, animate, keyframes } from '@angular/animations';
 import { NgStyle } from '@angular/common';
 import { ScrollableAreaComponent } from '../base/scrollable-area/scrollable-area.component';
+import { CloseIconComponent } from '../../icons/close-icon.component';
+import { ButtonComponent } from '../button/button.component';
 
 const overlayAnimation = trigger('overlayAnimation', [
   state('in', style({ opacity: 1, transform: 'scale(1)' })),
@@ -29,27 +31,32 @@ const overlayAnimation = trigger('overlayAnimation', [
 ]);
 
 @Component({
-  selector: 'app-dropdown',
+  selector: 'app-dropdown-window',
   standalone: true,
   template: `
-    <div #trigger (click)="toggle()">
+    <div #trigger  (click)="toggle()">
         <ng-content select="[dropdown-trigger]"></ng-content>
     </div>
   <ng-template>
-    <div  [@overlayAnimation]="animationState" [ngStyle]="{'width': this.width }" class="dropdown-content border truncate bg-app shadow">
+    <div  [@overlayAnimation]="animationState" [ngStyle]="{'width': this.width }" class="dropdown-content border truncate rounded bg-app shadow">
+  <div class="sticky border-b top-0 z-50 flex flex-row-reverse font-bold">
+    <app-button [type]="'icon'" (click)="toggle()" >
+      <app-close-icon [height]="'12'" [width]="'12'"></app-close-icon>
+    </app-button>
+  </div>
         <app-scrollable-area [height]="height">
           <ng-content select="[dropdown-content]"></ng-content>
-      </app-scrollable-area>
-      </div>
-
+        </app-scrollable-area>
+        </div>
+        
     </ng-template>
   `,
   animations: [overlayAnimation],
-  imports: [NgStyle, ScrollableAreaComponent],
+  imports: [NgStyle, ScrollableAreaComponent, CloseIconComponent, ButtonComponent],
 })
-export class DropdownComponent {
-  @Input() width = 'auto';
-  @Input() height = 'auto';
+export class DropdownWindowComponent {
+  @Input({ required: true }) width = 'auto';
+  @Input({ required: true }) height = 'auto';
 
   animationState: 'in' | 'void' = 'in';
   @ViewChild('trigger') trigger!: ElementRef;
@@ -82,7 +89,8 @@ export class DropdownComponent {
           overlayY: 'top',
         },
       ])
-      .withViewportMargin(10);
+      .withViewportMargin(10)
+      .withTransformOriginOn('.dropdown-content');
 
     const config = new OverlayConfig({
       positionStrategy: positionStrategy,
@@ -96,10 +104,8 @@ export class DropdownComponent {
   close() {
     if (this.overlayRef) {
       this.animationState = 'void';
-      setTimeout(() => {
-        this.overlayRef?.detach();
-        this.overlayRef = null;
-      }, 100);
+      this.overlayRef.detach();
+      this.overlayRef = null;
     }
   }
 
