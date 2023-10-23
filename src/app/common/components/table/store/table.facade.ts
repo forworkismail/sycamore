@@ -1,6 +1,6 @@
 import { Injectable, Signal, computed, inject } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { tableApiActions } from 'app/common/store/table/table.actions';
+import { tableApiActions } from 'app/common/components/table/store/table.actions';
 import {
   Filters,
   PageSize,
@@ -10,8 +10,8 @@ import {
   TableColumn,
   TableState,
   createInitialTableState,
-} from 'app/common/store/table/table.state';
-import { tableFeature } from 'app/common/store/table/table.reducer';
+} from 'app/common/components/table/store/table.state';
+import { tableFeature } from 'app/common/components/table/store/table.reducer';
 import { GetAllOptions } from './table.service';
 
 @Injectable({ providedIn: 'root' })
@@ -35,8 +35,14 @@ export class TableFacade<T> {
       pagination: this.pagination(),
       sort: this.sort(),
       filters: this.filters(),
+      fields: this.getDependsOnSet(this.columns()),
     };
   });
+
+  getDependsOnSet(columns: TableColumn<T>[]): (keyof T)[] {
+    const allDependsOn = columns.filter(column => column.visible).flatMap(column => column.dependsOn || []);
+    return [...new Set(allDependsOn)];
+  }
 
   loadItems(options: GetAllOptions<T>) {
     this.store.dispatch(
@@ -72,5 +78,10 @@ export class TableFacade<T> {
 
   toggleSelectAll(selected: boolean) {
     this.store.dispatch(tableApiActions<T>().selectAllItems({ selected }));
+  }
+
+  toggleColumnVisibility(column: TableColumn<T>) {
+    this.store.dispatch(tableApiActions<T>().toggleColumnVisibility({ column }));
+    this.loadItems(this.options());
   }
 }

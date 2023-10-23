@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
 import { provideState } from '@ngrx/store';
 import { provideEffects } from '@ngrx/effects';
-import { tableFeature } from 'app/common/store/table/table.reducer';
+import { tableFeature } from 'app/common/components/table/store/table.reducer';
 import { Product, createInitialProductTableState } from './feature/products/data-access/store/product.state';
 import { ProductEffects } from './feature/products/data-access/store/product.effects';
 

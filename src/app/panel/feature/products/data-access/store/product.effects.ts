@@ -2,7 +2,7 @@ import { Injectable, inject } from '@angular/core';
 import { Actions, ofType, createEffect } from '@ngrx/effects';
 import { of } from 'rxjs';
 import { map, catchError, switchMap } from 'rxjs/operators';
-import { tableApiActions } from 'app/common/store/table/table.actions';
+import { tableApiActions } from 'app/common/components/table/store/table.actions';
 import { Product } from './product.state';
 import { ProductService } from '../products.service';
 

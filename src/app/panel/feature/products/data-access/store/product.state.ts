@@ -1,4 +1,4 @@
-import { TableColumn, TableState, createInitialTableState } from 'app/common/store/table/table.state';
+import { TableColumn, TableState, createInitialTableState } from 'app/common/components/table/store/table.state';
 
 export interface Product {
   id: number;
@@ -16,38 +16,51 @@ export enum ProductType {
 
 export const productColumns: TableColumn<Product>[] = [
   {
-    id: 1,
+    label: 'id',
+    type: 'text',
+    width: 0,
+    dependsOn: ['id'],
+    mapper: (product: Product) => `${product.id}`,
+    sortColumnBy: 'id',
+    visible: true,
+  },
+  {
     label: 'Full description',
     type: 'text',
     width: 0.5,
+    dependsOn: ['name', 'description'],
     mapper: (product: Product) => `${product.name} ${product.description}`,
     sortColumnBy: 'name',
+    visible: true,
   },
   {
-    id: 2,
     label: 'price',
     type: 'text',
     width: 0.1,
-    mapper: (product: Product) => (product.price ? `${product.price}$` : `-`),
+    dependsOn: ['price'],
+    mapper: (product: Product) => (product.price ? `${product.price}` : ''),
     sortColumnBy: 'price',
     tailwindClass: (product: Product) =>
       product.price && product.price > 10 ? 'text-red-500 justify-end' : 'text-green-500 justify-end',
+    visible: false,
   },
   {
-    id: 3,
     label: 'category',
     type: 'text',
-    width: 0.3,
-    mapper: (product: Product) => `${product.category}`,
+    width: 0.5,
+    dependsOn: ['category'],
+    mapper: (product: Product) => (product.category ? `${product.category}` : ''),
     sortColumnBy: 'category',
+    visible: true,
   },
   {
-    id: 4,
     label: 'description',
     type: 'text',
     width: 0.3,
+    dependsOn: ['description'],
     mapper: (product: Product) => `${product.description}`,
     sortColumnBy: 'description',
+    visible: false,
   },
 ];
 

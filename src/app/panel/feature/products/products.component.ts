@@ -9,13 +9,16 @@ import { VerticalTabBarComponent } from 'app/common/components/tab-bar/vertical-
 import { TrashIconComponent } from 'app/common/icons/trash-icon.component';
 import { DraftIconComponent } from 'app/common/icons/draft-icon.component';
 import { EllipsisIconComponent } from 'app/common/icons/ellipsis-icon.component';
-import { ListComponent } from 'app/common/components/list/list.component';
+import { ListComponent } from 'app/common/components/table/list/list.component';
 import { Product, createInitialProductTableState } from './data-access/store/product.state';
-import { TableFacade } from 'app/common/store/table/table.facade';
+import { TableFacade } from 'app/common/components/table/store/table.facade';
 import { PaginationComponent } from '../../../common/components/pagination/pagination.component';
 import { RefreshIconComponent } from '../../../common/icons/refresh-icon.component';
 import { ProgressBarComponent } from '../../../common/components/progress-bar/progress-bar.component';
-import { DropdownComponent } from 'app/common/components/dropdown/dropdown.component';
+import { DropdownWindowComponent } from 'app/common/components/dropdown-window/dropdown-window.component';
+import { EyeIconComponent } from '../../../common/icons/eye-icon.component';
+import { CheckMarkIconComponent } from '../../../common/icons/checkmark-icon.component';
+import { TableSettingsComponent } from '../../../common/components/table/table-settings/table-settings.component';
 
 @Component({
   selector: 'app-products',
@@ -36,7 +39,10 @@ import { DropdownComponent } from 'app/common/components/dropdown/dropdown.compo
     PaginationComponent,
     RefreshIconComponent,
     ProgressBarComponent,
-    DropdownComponent,
+    DropdownWindowComponent,
+    EyeIconComponent,
+    CheckMarkIconComponent,
+    TableSettingsComponent,
   ],
 })
 export default class ProductsComponent {

@@ -1,6 +1,6 @@
 import { createReducer, on, createFeature, MemoizedSelector, createSelector, select } from '@ngrx/store';
-import { tableApiActions } from 'app/common/store/table/table.actions';
-import { TableState, createTableAdapter } from 'app/common/store/table/table.state';
+import { tableApiActions } from 'app/common/components/table/store/table.actions';
+import { TableState, createTableAdapter } from 'app/common/components/table/store/table.state';
 
 export function tableFeature<T>(initialState: TableState<T>) {
   return createFeature({
@@ -74,6 +74,23 @@ export function tableFeature<T>(initialState: TableState<T>) {
             selectedItems: selected ? [...(state.ids as number[])] : [],
             allSelected: selected ? true : false,
           },
+        };
+      }),
+      on(tableApiActions<T>().toggleColumnVisibility, (state, { column }) => {
+        return {
+          ...state,
+          columns: state.columns.map(c => {
+            if (
+              c.dependsOn.length === column.dependsOn.length &&
+              c.dependsOn.every((value, index) => value === column.dependsOn[index])
+            ) {
+              return {
+                ...c,
+                visible: !c.visible,
+              };
+            }
+            return c;
+          }),
         };
       }),
     ),

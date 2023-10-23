@@ -1,15 +1,15 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { NgClass, NgFor, NgIf, NgStyle, TitleCasePipe } from '@angular/common';
-import { ScrollableAreaComponent } from '../base/scrollable-area/scrollable-area.component';
-import { ButtonComponent } from '../button/button.component';
+import { ScrollableAreaComponent } from '../../base/scrollable-area/scrollable-area.component';
+import { ButtonComponent } from '../../button/button.component';
 import { TrashIconComponent } from 'app/common/icons/trash-icon.component';
 import { EllipsisIconComponent } from 'app/common/icons/ellipsis-icon.component';
 import { Directionality } from '@angular/cdk/bidi';
-import { EyeIconComponent } from '../../icons/eye-icon.component';
-import { Select, Sort, TableColumn } from 'app/common/store/table/table.state';
+import { EyeIconComponent } from '../../../icons/eye-icon.component';
+import { Select, Sort, TableColumn } from 'app/common/components/table/store/table.state';
 import { DownArrowIconComponent } from 'app/common/icons/downarrow-icon.component';
-import { UpArrowIconComponent } from '../../icons/uparrow-icon.component';
-import { PaginationComponent } from '../pagination/pagination.component';
+import { UpArrowIconComponent } from '../../../icons/uparrow-icon.component';
+import { PaginationComponent } from '../../pagination/pagination.component';
 
 @Component({
   selector: 'app-list',
@@ -47,10 +47,22 @@ export class ListComponent<T extends { id: number }> {
 
   constructor(public dir: Directionality) {}
 
-  getColumnWidthClass(column: TableColumn<T>, totalColumns: number): string {
-    const fraction = column.width ? column.width : 1 / totalColumns;
-    const percentage = fraction * 100;
-    return `${percentage}%`;
+  getColumnWidthClass(column: TableColumn<T>, allColumns: TableColumn<T>[]): TableColumn<T>[] {
+    // Filter out only the visible columns
+    const visibleColumns = allColumns.filter(col => col.visible);
+
+    // Calculate the total weight of the visible columns
+    const totalWeight = visibleColumns.reduce((acc, col) => acc + (col.width || 1), 0);
+
+    // Calculate and update the width for each visible column based on its relative weight
+    return allColumns.map(col => {
+      if (col.visible) {
+        const relativeWeight = (col.width || 1) / totalWeight;
+        const percentage = relativeWeight * 100;
+        return { ...col, width: percentage };
+      }
+      return col;
+    });
   }
 
   changeSort(column: TableColumn<T>) {

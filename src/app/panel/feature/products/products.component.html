@@ -34,37 +34,12 @@
           [pagination]="tableFacade.pagination()"
           (pageChange)="tableFacade.changePage($event)"></app-pagination>
         <div class="border-s px-1">
-          <app-dropdown #myOverlay [width]="'200px'" [height]="'300px'">
-            <app-button dropdown-trigger title="Table Settings" [type]="'icon'">
-              <app-ellipsis-icon></app-ellipsis-icon>
-            </app-button>
-            <div dropdown-content>
-              <div class="flex flex-col items-start space-y-2">
-                <div class="w-full border-b p-3">
-                  <div class="mb-4 text-xs">Page size</div>
-                  <div class="flex flex-row justify-around text-xl">
-                    <div
-                      (click)="tableFacade.changePageSize(10)"
-                      [ngClass]="tableFacade.pagination().pageSize == 10 ? 'font-bold' : 'cursor-pointer'">
-                      10
-                    </div>
-                    <div
-                      (click)="tableFacade.changePageSize(20)"
-                      [ngClass]="tableFacade.pagination().pageSize == 20 ? 'font-bold' : 'cursor-pointer'">
-                      20
-                    </div>
-                    <div
-                      (click)="tableFacade.changePageSize(50)"
-                      [ngClass]="tableFacade.pagination().pageSize == 50 ? 'font-bold' : 'cursor-pointer'">
-                      50
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <!-- <app-table-settings [columns]="tableFacade.columns()" (columnsChange)="tableFacade.changeColumns($event)"></app-table-settings> -->
-            </div>
-          </app-dropdown>
+          <app-table-settings
+            [columns]="tableFacade.columns()"
+            [pageSize]="tableFacade.pagination().pageSize"
+            (pageSizeChange)="tableFacade.changePageSize($event)"
+            [excludedColumns]="['id', 'name']"
+            (toggleColumnVisibility)="tableFacade.toggleColumnVisibility($event)"></app-table-settings>
         </div>
       </div>
     </div>

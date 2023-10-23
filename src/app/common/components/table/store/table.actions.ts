@@ -1,5 +1,5 @@
-import { createActionGroup, props } from '@ngrx/store';
-import { PageSize, Sort } from './table.state';
+import { createActionGroup, emptyProps, props } from '@ngrx/store';
+import { PageSize, Sort, TableColumn } from './table.state';
 import { GetAllOptions, PaginatedResult } from './table.service';
 
 export function tableApiActions<T>() {
@@ -14,6 +14,7 @@ export function tableApiActions<T>() {
       changeSort: props<{ sort: Sort<T> }>(),
       selectItem: props<{ id: number }>(),
       selectAllItems: props<{ selected: boolean }>(),
+      toggleColumnVisibility: props<{ column: TableColumn<T> }>(),
     },
   });
 }

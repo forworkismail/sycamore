@@ -7,6 +7,7 @@ export interface GetAllOptions<T> {
   sort: Sort<T>;
   filters: Filters;
   pagination: Pagination;
+  fields: (keyof T)[];
 }
 
 export interface PaginatedResult<T> {
