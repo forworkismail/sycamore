@@ -2,7 +2,7 @@ import { Injectable, inject } from '@angular/core';
 import { Observable, delay, of } from 'rxjs';
 import { Product } from './store/product.state';
 import { MOCK_PRODUCTS } from './mock-products';
-import { GetAllOptions, PaginatedResult, TableService } from 'app/common/store/table/table.service';
+import { GetAllOptions, PaginatedResult, TableService } from 'app/common/components/table/store/table.service';
 
 @Injectable({ providedIn: 'root' })
 export class ProductService {
@@ -16,7 +16,17 @@ export class ProductService {
   getAllProducts(options: GetAllOptions<Product>): Observable<PaginatedResult<Product>> {
     let result = [...this.products]; // Create a shallow copy to avoid modifying the original array
 
-    // Filter products based on the filter options
+    if (options.fields && options.fields.length) {
+      result = result.map(product => {
+        return options.fields.reduce((acc, field) => {
+          if (product.hasOwnProperty(field)) {
+            acc[field] = product[field] as any;
+          }
+          return acc;
+        }, {} as Partial<Product>);
+      }) as Product[];
+    }
+
     if (options.filters) {
       if (options.filters['searchTerm']) {
         const term = options.filters['searchTerm'].toLowerCase();
@@ -63,7 +73,6 @@ export class ProductService {
       const end = start + options.pagination.pageSize;
       result = result.slice(start, end);
     }
-
     return of({ data: result, totalPages }).pipe(delay(1000));
   }
 
