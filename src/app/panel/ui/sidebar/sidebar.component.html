@@ -15,7 +15,7 @@
       <a
         [routerLink]="['/panel', item.link]"
         routerLinkActive="menu-active-link"
-        class="my-1 flex cursor-pointer items-center rounded-lg px-2 py-3 transition-all hover:bg-tertiary"
+        class="my-1 flex cursor-pointer items-center rounded px-2 py-3 transition-all hover:bg-tertiary"
         [ngClass]="item.link === activeRoute ? 'bg-tertiary font-bold' : ''"
         (click)="getActiveRouteSegment()">
         <ng-container [ngComponentOutlet]="item.icon"></ng-container>

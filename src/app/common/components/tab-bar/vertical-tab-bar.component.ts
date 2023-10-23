@@ -13,8 +13,8 @@ import { TabBarItem } from './tab-bar.config';
       *ngFor="let tab of tabs"
         [routerLink]="['/panel', tab.link]"
         routerLinkActive="menu-active-link"
-        class="me-4 flex cursor-pointer items-center space-x-2 rtl:space-x-reverse rounded-lg p-2 hover:bg-tertiary"
-        [ngClass]="tab.link === activeRoute ? 'bg-tertiary  font-bold' : ''"
+        class="me-4 flex cursor-pointer items-center space-x-2 rtl:space-x-reverse rounded p-2 hover:bg-tertiary"
+        [ngClass]="tab.link === activeRoute ? 'bg-tertiary font-bold' : ''"
         (click)="getActiveRouteSegment()">
         <ng-container [ngComponentOutlet]="tab.icon"></ng-container>
         <div class="w-[70%] truncate">{{tab.label }}</div>
