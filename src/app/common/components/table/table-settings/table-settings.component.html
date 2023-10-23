@@ -1,0 +1,37 @@
+<app-dropdown-window #myOverlay [width]="'200px'" [height]="'320px'">
+  <app-button dropdown-trigger title="Table Settings" [type]="'icon'">
+    <app-ellipsis-icon></app-ellipsis-icon>
+  </app-button>
+  <div dropdown-content>
+    <div class="flex flex-col flex-wrap items-start space-y-1">
+      <div class="w-full border-b p-3">
+        <div class="mb-4 text-xs">Page size</div>
+        <div class="flex flex-row justify-around text-xl">
+          <ng-container *ngFor="let pageSizeOption of pageSizeOptions">
+            <div
+              (click)="changePageSize(pageSizeOption)"
+              [ngClass]="pageSize == pageSizeOption ? 'font-bold' : 'cursor-pointer'">
+              {{ pageSizeOption }}
+            </div>
+          </ng-container>
+        </div>
+      </div>
+      <div class="w-full border-b px-1">
+        <div class="flex flex-col justify-around space-y-1">
+          <ng-container *ngFor="let column of columns">
+            <ng-container *ngIf="!isColumnExcluded(column)">
+              <div
+                (click)="changeColumnVisibility(column)"
+                class="flex cursor-pointer flex-row items-center space-x-2 px-2 py-1 hover:bg-tertiary">
+                <div class="w-4" [ngClass]="column.visible ? 'visible' : 'invisible'">
+                  <app-checkmark-icon></app-checkmark-icon>
+                </div>
+                <div class="truncate">{{column.label}}</div>
+              </div>
+            </ng-container>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+  </div>
+</app-dropdown-window>
