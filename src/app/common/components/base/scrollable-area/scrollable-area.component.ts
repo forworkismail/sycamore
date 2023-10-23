@@ -10,7 +10,7 @@ import { NgClass, NgStyle } from '@angular/common';
   [ngStyle]="containerStyle"
         [ngClass]="{
             'overflow-y-auto overflow-x-auto': scrollBehavior === 'always', 
-            'overflow-y-hidden hover:overflow-y-auto': scrollBehavior === 'onHover'
+            'overflow-hidden hover:overflow-auto': scrollBehavior === 'onHover'
         }">
         <ng-content></ng-content>
     </div>
