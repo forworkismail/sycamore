@@ -11,7 +11,8 @@
   </div>
 
   <div class="flex h-[calc(100%-5rem)] flex-col overflow-y-auto border-y border-primary py-2">
-    <div *ngFor="let item of menu" class="px-2">
+    @for (item of menu; track item) {
+  <div class="px-2">
       <a
         [routerLink]="['/panel', item.link]"
         routerLinkActive="menu-active-link"
@@ -22,5 +23,6 @@
         <div class="ms-3 w-[60%] truncate">{{item.label }}</div>
       </a>
     </div>
+}
   </div>
 </div>

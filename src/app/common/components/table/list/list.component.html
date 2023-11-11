@@ -1,39 +1,56 @@
 <app-scrollable-area>
   <div class="sticky top-0 z-50 flex flex-row border bg-secondary font-bold shadow">
-    <ng-container *ngFor="let column  of columns">
-      <div
-        *ngIf="column.visible && column.label != 'id'"
+    @for (column  of columns; track column ) {
+  
+      @if (column.visible && column.label != 'id') {
+<div
+       
         (click)="changeSort(column)"
         class="flex cursor-pointer flex-row items-center space-x-1 truncate px-2 py-1 hover:bg-tertiary"
         [ngStyle]="{'width': getColumnWidthClass(column, columns)}">
         <div>
           {{ column.label | titlecase }}
         </div>
-        <div *ngIf="sortColumn && sortColumn.column == column.sortColumnBy">
-          <app-uparrow-icon *ngIf="sortColumn.direction == 'asc'"></app-uparrow-icon>
-          <app-downarrow-icon *ngIf="sortColumn.direction == 'desc'"></app-downarrow-icon>
+        @if (sortColumn && sortColumn.column == column.sortColumnBy) {
+<div>
+          @if (sortColumn.direction == 'asc') {
+<app-uparrow-icon></app-uparrow-icon>
+}
+          @if (sortColumn.direction == 'desc') {
+<app-downarrow-icon></app-downarrow-icon>
+}
         </div>
+}
       </div>
-    </ng-container>
+}
+    
+}
   </div>
   <div class="border bg-app">
-    <ng-container *ngFor="let row of rows">
+    @for (row of rows; track row) {
+  
       <div
         class="hover:shadow-hover group relative flex flex-row border-b transition-shadow hover:cursor-pointer hover:shadow">
-        <ng-container *ngFor="let column of columns; let i = index;">
-          <div
-            *ngIf="column.visible && column.label != 'id'"
+        @for (column of columns; track column; let i = $index) {
+  
+          @if (column.visible && column.label != 'id') {
+<div
+           
             class="flex flex-row items-center space-x-2 px-2 py-2"
             [ngClass]="(selectedItems.includes(row.id) ? 'bg-tertiary ' : '') + (column.tailwindClass ? column.tailwindClass(row) : '')"
             [ngStyle]="{'width': getColumnWidthClass(column, columns)}">
-            <div *ngIf="i === 1" class="flex flex-row items-center">
+            @if (i === 1) {
+<div class="flex flex-row items-center">
               <input type="checkbox" [checked]="selectedItems.includes(row.id)" (change)="onSelectItem(row.id)" />
             </div>
+}
             <div class="truncate">
               {{ column.mapper(row) }}
             </div>
           </div>
-        </ng-container>
+}
+        
+}
         <div
           [ngClass]="{'right-0': dir.value === 'ltr', 'left-0': dir.value === 'rtl'}"
           class="absolute z-10 hidden border bg-app px-2 shadow group-hover:flex">
@@ -42,6 +59,7 @@
           </app-button>
         </div>
       </div>
-    </ng-container>
+    
+}
   </div>
 </app-scrollable-area>

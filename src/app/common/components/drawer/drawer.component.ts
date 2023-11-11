@@ -6,7 +6,9 @@ import { NgClass, NgIf, NgStyle } from '@angular/common';
   standalone: true,
   imports: [NgIf, NgStyle, NgClass],
   template: `
-  <div *ngIf="isOpen" class="overlay" (click)="closeDrawer()"></div>
+  @if (isOpen) {
+<div class="overlay" (click)="closeDrawer()"></div>
+}
   <div class="drawer-container rounded-e-lg bg-app" [ngClass]="position" [ngStyle]="getStyle()">
     <ng-content></ng-content>
   </div>

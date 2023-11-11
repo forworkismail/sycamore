@@ -16,17 +16,21 @@
       <div class="flex flex-row items-center space-x-2">
         <input type="checkbox" [checked]="tableFacade.selection().allSelected" (change)="toggleSelectAll($event)" />
 
-        <ng-container *ngIf="tableFacade.selection().selectedItems.length > 0">
+        @if (tableFacade.selection().selectedItems.length > 0) {
+
           <app-button [type]="'icon'">
             <app-trash-icon></app-trash-icon>
           </app-button>
-        </ng-container>
+        
+}
 
-        <ng-container *ngIf="tableFacade.selection().selectedItems.length == 0">
+        @if (tableFacade.selection().selectedItems.length == 0) {
+
           <app-button title="Refresh" [type]="'icon'" (click)="tableFacade.loadItems(tableFacade.options())">
             <app-refresh-icon></app-refresh-icon>
           </app-button>
-        </ng-container>
+        
+}
       </div>
 
       <div class="flex flex-row items-center space-x-2">
